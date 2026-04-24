@@ -37,4 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ── Onboarding Form Logic ──────────────────────────────────────────
+    const onboardForm = document.getElementById('onboardForm');
+    if (onboardForm) {
+        onboardForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const shopName = document.getElementById('shopNameInput').value;
+            const currency = document.getElementById('currencySelect').value;
+            
+            if (shopName) {
+                const url = new URL('https://zikfash.intitech.dev');
+                url.searchParams.set('ref', 'tailor');
+                url.searchParams.set('shop', shopName);
+                url.searchParams.set('currency', currency);
+                window.location.href = url.toString();
+            }
+        });
+    }
 });

@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,9 +31,21 @@
             <div class="hero-text">
                 <h1 class="reveal">Legendary Outfits start with <span>Masterful Records.</span></h1>
                 <p class="reveal delay-1">Ditch the messy notebooks. ZikFash is the premium digital record book designed specifically for the professional Nigerian tailor.</p>
-                <div class="hero-ctas reveal delay-2">
-                    <a href="https://zikfash.intitech.dev" class="btn-gold">Open My Workstation</a>
-                    <a href="#features" class="btn-outline">Explore Features</a>
+                <div class="hero-onboard reveal delay-2">
+                    <form id="onboardForm" class="onboard-form">
+                        <input type="text" id="shopNameInput" placeholder="Your Shop Name (e.g. Obi Stitches)" required autocomplete="off" />
+                        <select id="currencySelect" required title="Currency">
+                            <option value="₦">₦ (NGN)</option>
+                            <option value="$">$ (USD)</option>
+                            <option value="£">£ (GBP)</option>
+                            <option value="Ksh">Ksh (KES)</option>
+                            <option value="GH₵">GH₵ (GHS)</option>
+                        </select>
+                        <button type="submit" class="btn-gold">Launch Workstation</button>
+                    </form>
+                    <div class="onboard-alt">
+                        Or <a href="https://zikfash.intitech.dev">try the Guest Demo</a>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual reveal delay-3">
