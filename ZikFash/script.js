@@ -47,12 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const currency = document.getElementById('currencySelect').value;
             
             if (shopName) {
-                const url = new URL('https://zikfash.intitech.dev');
-                url.searchParams.set('ref', 'tailor');
-                url.searchParams.set('shop', shopName);
-                url.searchParams.set('currency', currency);
-                window.location.href = url.toString();
+                const baseUrl = 'https://zikfash.intitech.dev';
+                const params = new URLSearchParams();
+                params.set('ref', 'tailor');
+                params.set('shop', shopName);
+                params.set('currency', currency);
+                window.location.href = `${baseUrl}?${params.toString()}`;
             }
         });
     }
+
+    // Trigger the Z-logo transformation after the glide to top-left is done (10.5s)
+    setTimeout(() => {
+        const scissors = document.getElementById('scissors');
+        if (scissors) {
+            scissors.classList.add('transformed');
+        }
+    }, 10500);
 });

@@ -12,12 +12,20 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 </head>
 <body>
     <header class="header">
         <div class="container">
-            <div class="logo">✂ ZikFash</div>
+            <div class="logo">
+                <span class="material-symbols-outlined">content_cut</span> ZikFash
+            </div>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span class="material-symbols-outlined">menu</span>
+            </label>
             <nav class="nav">
                 <a href="#features">Features</a>
                 <a href="#about">About</a>
@@ -33,7 +41,7 @@
                 <p class="reveal delay-1">Ditch the messy notebooks. ZikFash is the premium digital record book designed specifically for the professional Nigerian tailor.</p>
                 <div class="hero-onboard reveal delay-2">
                     <form id="onboardForm" class="onboard-form">
-                        <input type="text" id="shopNameInput" placeholder="Your Shop Name (e.g. Obi Stitches)" required autocomplete="off" />
+                        <input type="text" id="shopNameInput" placeholder="Your Shop Name" required autocomplete="on" />
                         <select id="currencySelect" required title="Currency">
                             <option value="₦">₦ (NGN)</option>
                             <option value="$">$ (USD)</option>
@@ -47,39 +55,28 @@
                         Or <a href="https://zikfash.intitech.dev">try the Guest Demo</a>
                     </div>
                 </div>
-            </div>
             <div class="hero-visual reveal delay-3">
-                <div class="illustration-frame">
-                    <!-- ── Hand-Crafted CSS/SVG Illustration ── -->
-                    <svg viewBox="0 0 500 500" class="svg-tools floating">
-                        <!-- Swirling Thread -->
-                        <path d="M 100,400 Q 250,100 400,300 T 500,100" class="thread-path" />
-                        
-                        <!-- Tape Measure (Coiled) -->
-                        <path d="M 50,450 C 50,450 150,480 300,450 S 450,300 400,200 S 200,100 150,250" class="tape-path" />
-                        
-                        <!-- Scissors Part 1 -->
-                        <g class="scissors-handle-group">
-                            <circle cx="120" cy="180" r="30" class="handle" />
-                            <path d="M 145,195 L 300,320 L 310,310 L 155,185 Z" class="blade" />
-                        </g>
-                        <!-- Scissors Part 2 -->
-                        <g class="scissors-handle-group flipped">
-                            <circle cx="120" cy="280" r="30" class="handle" />
-                            <path d="M 145,265 L 300,140 L 310,150 L 155,275 Z" class="blade" />
-                        </g>
-                        <!-- Pivot -->
-                        <circle cx="185" cy="230" r="6" class="pivot" />
-
-                        <!-- Needle -->
-                        <line x1="380" y1="100" x2="450" y2="50" class="needle" />
-                    </svg>
-
-                    <div class="glass-card">
-                        <div class="card-line"></div>
-                        <div class="card-line short"></div>
-                        <div class="card-dot"></div>
+                <div class="illustration-container">
+                    <div class="half" id="top"></div>
+                    <div id="cut"></div>
+                    <div id="scissors">
+                        <div id="top-part">
+                            <div id="rotator-top">
+                                <div class="blade segment-1"></div>
+                                <div class="blade segment-2"></div>
+                                <div class="hole"></div>
+                            </div>
+                        </div>
+                        <div id="bottom-part">
+                            <div id="rotator-bottom">
+                                <div class="blade"></div>
+                                <div class="hole"></div>
+                                <div class="screw"></div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="half" id="bottom"></div>
+                    <span id="text"><span id="firstline"><span id="z-placeholder">Z</span>ik</span><br>Fash</span>
                 </div>
             </div>
         </div>
@@ -92,22 +89,30 @@
             </div>
             <div class="feature-grid">
                 <div class="feature-card reveal-up">
-                    <div class="f-icon">📏</div>
+                    <div class="f-icon">
+                        <span class="material-symbols-outlined">straighten</span>
+                    </div>
                     <h3>Smart Tape Logic</h3>
                     <p>Visual body mapping for impeccable accuracy. Never miss a measurement again.</p>
                 </div>
                 <div class="feature-card reveal-up delay-1">
-                    <div class="f-icon">📝</div>
+                    <div class="f-icon">
+                        <span class="material-symbols-outlined">assignment</span>
+                    </div>
                     <h3>Order Ledger</h3>
                     <p>Track every commission from deposit to collection. Know exactly what's owed.</p>
                 </div>
                 <div class="feature-card reveal-up delay-2">
-                    <div class="f-icon">📲</div>
+                    <div class="f-icon">
+                        <span class="material-symbols-outlined">send_to_mobile</span>
+                    </div>
                     <h3>WhatsApp Receipts</h3>
                     <p>Send professional status updates and reminders to your clients instantly.</p>
                 </div>
                 <div class="feature-card reveal-up delay-3">
-                    <div class="f-icon">🏔️</div>
+                    <div class="f-icon">
+                        <span class="material-symbols-outlined">signal_wifi_off</span>
+                    </div>
                     <h3>100% Offline</h3>
                     <p>Works in the deepest corners of the shop. No internet required after first load.</p>
                 </div>
@@ -119,7 +124,9 @@
         <div class="container">
             <div class="footer-wrap">
                 <div class="f-brand">
-                    <div class="logo">✂ ZikFash</div>
+                    <div class="logo">
+                        <span class="material-symbols-outlined">content_cut</span> ZikFash
+                    </div>
                     <p>Powered by <strong>IntiTech</strong></p>
                 </div>
                 <p class="copyright">&copy; 2026 ZikFash. All rights reserved.</p>
