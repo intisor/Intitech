@@ -1,0 +1,524 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" width="900" height="1100">
+<defs>
+  <!-- Grain -->
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+    <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+  </filter>
+  <pattern id="g" width="3" height="3" patternUnits="userSpaceOnUse">
+    <rect width="1" height="1" fill="#fff" x="0" y="0" opacity="0.5"/>
+    <rect width="1" height="1" fill="#fff" x="1" y="2" opacity="0.25"/>
+  </pattern>
+
+  <!-- Leaf vein letter stroke style -->
+  <style>
+    .midrib    { stroke: #8a7a2e; fill: none; stroke-linecap: round; }
+    .vein-2    { stroke: #8a7a2e; fill: none; stroke-linecap: round; opacity: 0.85; }
+    .vein-3    { stroke: #8ab87a; fill: none; stroke-linecap: round; opacity: 0.6; }
+    .vein-4    { stroke: #8ab87a; fill: none; stroke-linecap: round; opacity: 0.35; }
+    .cap-body  { fill: #1c1a13; }
+    .cap-rim   { fill: #2e2b22; }
+    .cap-seam  { stroke: #2e2b22; fill: none; stroke-linecap: round; }
+    .cap-shadow{ fill: #080705; }
+    .label     { font-family: 'JetBrains Mono', monospace; fill: #6b6355; letter-spacing: 0.2em; }
+    .title     { font-family: 'Cinzel', Georgia, serif; fill: #2e2b22; letter-spacing: 0.4em; }
+    .rule      { stroke: #1c1a13; }
+  </style>
+</defs>
+
+<!-- Background -->
+<rect width="900" height="1100" fill="#080705"/>
+<rect width="900" height="1100" fill="url(#g)" opacity="0.04"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- SECTION HEADER -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="38" class="title" font-size="8">INTITECH · LOGO + ORNAMENT SYSTEM · MMXXV</text>
+<line x1="40" y1="48" x2="860" y2="48" class="rule" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ROW 1 — CAP MARK: "IN" FAVICON VERSION -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="72" class="label" font-size="7">01 — MARK · "IN" · FAVICON/ICON SIZE</text>
+
+<!-- ── CAP MARK DARK (primary) ── -->
+<g transform="translate(110, 85)">
+  <!-- Cap body -->
+  <path class="cap-body" d="M -46 82 L -52 11 Q -52 0 -40 0 L 40 0 Q 52 0 52 11 L 46 82 Z"/>
+  <!-- Rim -->
+  <path class="cap-rim" d="M -40 0 Q -40 -9 0 -11 Q 40 -9 40 0 L 34 0 Q 34 -5 0 -7 Q -34 -5 -34 0 Z"/>
+  <!-- Seam -->
+  <line class="cap-seam" x1="0" y1="-7" x2="0" y2="82" stroke-width="0.6" opacity="0.5"/>
+  <!-- Shadow -->
+  <ellipse class="cap-shadow" cx="0" cy="82" rx="46" ry="3.5" opacity="0.5"/>
+
+  <!-- LEAF VEIN "I" — left letter -->
+  <!-- I midrib vertical -->
+  <line class="midrib" x1="-22" y1="18" x2="-22" y2="65" stroke-width="1.8"/>
+  <!-- I top bar midrib -->
+  <line class="midrib" x1="-30" y1="18" x2="-14" y2="18" stroke-width="1.6"/>
+  <!-- I bottom bar midrib -->
+  <line class="midrib" x1="-30" y1="65" x2="-14" y2="65" stroke-width="1.6"/>
+  <!-- I secondary veins from vertical -->
+  <line class="vein-2" x1="-22" y1="28" x2="-27" y2="24" stroke-width="0.9"/>
+  <line class="vein-2" x1="-22" y1="28" x2="-17" y2="24" stroke-width="0.9"/>
+  <line class="vein-2" x1="-22" y1="38" x2="-28" y2="33" stroke-width="0.8"/>
+  <line class="vein-2" x1="-22" y1="38" x2="-16" y2="33" stroke-width="0.8"/>
+  <line class="vein-2" x1="-22" y1="48" x2="-27" y2="43" stroke-width="0.8"/>
+  <line class="vein-2" x1="-22" y1="48" x2="-17" y2="43" stroke-width="0.8"/>
+  <line class="vein-2" x1="-22" y1="57" x2="-27" y2="52" stroke-width="0.7"/>
+  <line class="vein-2" x1="-22" y1="57" x2="-17" y2="52" stroke-width="0.7"/>
+  <!-- I top bar secondary veins -->
+  <line class="vein-3" x1="-26" y1="18" x2="-28" y2="14" stroke-width="0.5"/>
+  <line class="vein-3" x1="-18" y1="18" x2="-16" y2="14" stroke-width="0.5"/>
+  <!-- I tertiary micro veins -->
+  <line class="vein-4" x1="-22" y1="33" x2="-25" y2="30" stroke-width="0.4"/>
+  <line class="vein-4" x1="-22" y1="33" x2="-19" y2="30" stroke-width="0.4"/>
+  <line class="vein-4" x1="-22" y1="43" x2="-25" y2="40" stroke-width="0.4"/>
+  <line class="vein-4" x1="-22" y1="53" x2="-25" y2="50" stroke-width="0.4"/>
+
+  <!-- LEAF VEIN "N" — right letter -->
+  <!-- N left vertical midrib -->
+  <line class="midrib" x1="-4" y1="18" x2="-4" y2="65" stroke-width="1.8"/>
+  <!-- N diagonal midrib -->
+  <line class="midrib" x1="-4" y1="18" x2="18" y2="65" stroke-width="1.6"/>
+  <!-- N right vertical midrib -->
+  <line class="midrib" x1="18" y1="18" x2="18" y2="65" stroke-width="1.8"/>
+  <!-- N left vertical secondary veins -->
+  <line class="vein-2" x1="-4" y1="28" x2="-9" y2="24" stroke-width="0.9"/>
+  <line class="vein-2" x1="-4" y1="38" x2="-9" y2="33" stroke-width="0.8"/>
+  <line class="vein-2" x1="-4" y1="48" x2="-9" y2="43" stroke-width="0.8"/>
+  <line class="vein-2" x1="-4" y1="57" x2="-9" y2="52" stroke-width="0.7"/>
+  <!-- N diagonal secondary veins -->
+  <line class="vein-2" x1="2" y1="30" x2="-1" y2="26" stroke-width="0.8"/>
+  <line class="vein-2" x1="7" y1="42" x2="4" y2="37" stroke-width="0.7"/>
+  <line class="vein-2" x1="12" y1="54" x2="9" y2="49" stroke-width="0.6"/>
+  <!-- N diagonal opposite veins -->
+  <line class="vein-3" x1="2" y1="30" x2="5" y2="34" stroke-width="0.5"/>
+  <line class="vein-3" x1="7" y1="42" x2="10" y2="46" stroke-width="0.5"/>
+  <!-- N right vertical secondary veins -->
+  <line class="vein-2" x1="18" y1="28" x2="23" y2="24" stroke-width="0.9"/>
+  <line class="vein-2" x1="18" y1="38" x2="23" y2="33" stroke-width="0.8"/>
+  <line class="vein-2" x1="18" y1="48" x2="23" y2="43" stroke-width="0.8"/>
+  <line class="vein-2" x1="18" y1="57" x2="23" y2="52" stroke-width="0.7"/>
+  <!-- N tertiary veins -->
+  <line class="vein-4" x1="-4" y1="33" x2="-7" y2="30" stroke-width="0.4"/>
+  <line class="vein-4" x1="-4" y1="43" x2="-7" y2="40" stroke-width="0.4"/>
+  <line class="vein-4" x1="18" y1="33" x2="21" y2="30" stroke-width="0.4"/>
+  <line class="vein-4" x1="18" y1="43" x2="21" y2="40" stroke-width="0.4"/>
+</g>
+<text x="110" y="192" class="label" font-size="7" text-anchor="middle">DARK · PRIMARY</text>
+
+<!-- ── CAP MARK EMBER ── -->
+<g transform="translate(280, 85)">
+  <path d="M -46 82 L -52 11 Q -52 0 -40 0 L 40 0 Q 52 0 52 11 L 46 82 Z" fill="#1c1a13" stroke="#c8612a" stroke-width="0.8"/>
+  <path d="M -40 0 Q -40 -9 0 -11 Q 40 -9 40 0 L 34 0 Q 34 -5 0 -7 Q -34 -5 -34 0 Z" fill="#4a2410"/>
+  <line x1="0" y1="-7" x2="0" y2="82" stroke="#c8612a" stroke-width="0.6" opacity="0.3" fill="none"/>
+  <ellipse cx="0" cy="82" rx="46" ry="3.5" fill="#c8612a" opacity="0.12"/>
+  <!-- I vein - ember state uses sprout green -->
+  <line x1="-22" y1="18" x2="-22" y2="65" stroke="#8ab87a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-30" y1="18" x2="-14" y2="18" stroke="#8ab87a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="-30" y1="65" x2="-14" y2="65" stroke="#8ab87a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="-22" y1="32" x2="-28" y2="27" stroke="#8ab87a" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-22" y1="32" x2="-16" y2="27" stroke="#8ab87a" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-22" y1="46" x2="-27" y2="41" stroke="#8ab87a" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="-22" y1="46" x2="-17" y2="41" stroke="#8ab87a" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="-22" y1="57" x2="-27" y2="52" stroke="#c2ddb8" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <!-- N veins ember -->
+  <line x1="-4" y1="18" x2="-4" y2="65" stroke="#8ab87a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-4" y1="18" x2="18" y2="65" stroke="#8ab87a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="18" y1="18" x2="18" y2="65" stroke="#8ab87a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-4" y1="32" x2="-9" y2="27" stroke="#8ab87a" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-4" y1="46" x2="-9" y2="41" stroke="#8ab87a" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="32" x2="23" y2="27" stroke="#8ab87a" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="18" y1="46" x2="23" y2="41" stroke="#8ab87a" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="5" y1="36" x2="2" y2="31" stroke="#c2ddb8" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="11" y1="49" x2="8" y2="44" stroke="#c2ddb8" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+</g>
+<text x="280" y="192" class="label" font-size="7" text-anchor="middle">EMBER · HOVER</text>
+
+<!-- ── CAP MARK LIGHT ── -->
+<rect x="370" y="80" width="130" height="115" fill="#e8dcc8" rx="1"/>
+<g transform="translate(435, 85)">
+  <path d="M -46 82 L -52 11 Q -52 0 -40 0 L 40 0 Q 52 0 52 11 L 46 82 Z" fill="#c9b99a"/>
+  <path d="M -40 0 Q -40 -9 0 -11 Q 40 -9 40 0 L 34 0 Q 34 -5 0 -7 Q -34 -5 -34 0 Z" fill="#a08060"/>
+  <line x1="0" y1="-7" x2="0" y2="82" stroke="#a08060" stroke-width="0.6" opacity="0.4" fill="none"/>
+  <!-- I vein light - deep root green -->
+  <line x1="-22" y1="18" x2="-22" y2="65" stroke="#1a2e1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-30" y1="18" x2="-14" y2="18" stroke="#1a2e1a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="-30" y1="65" x2="-14" y2="65" stroke="#1a2e1a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="-22" y1="32" x2="-28" y2="27" stroke="#3d5c35" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-22" y1="32" x2="-16" y2="27" stroke="#3d5c35" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-22" y1="48" x2="-27" y2="43" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="-22" y1="48" x2="-17" y2="43" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- N vein light -->
+  <line x1="-4" y1="18" x2="-4" y2="65" stroke="#1a2e1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-4" y1="18" x2="18" y2="65" stroke="#1a2e1a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <line x1="18" y1="18" x2="18" y2="65" stroke="#1a2e1a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <line x1="-4" y1="32" x2="-9" y2="27" stroke="#3d5c35" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="-4" y1="48" x2="-9" y2="43" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="32" x2="23" y2="27" stroke="#3d5c35" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="18" y1="48" x2="23" y2="43" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.7"/>
+</g>
+<text x="435" y="207" class="label" font-size="7" text-anchor="middle">LIGHT · ALT BG</text>
+
+<line x1="40" y1="220" x2="860" y2="220" class="rule" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ROW 2 — "INTI" DISPLAY VERSION -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="244" class="label" font-size="7">02 — MARK · "INTI" · DISPLAY/HERO SIZE</text>
+
+<g transform="translate(200, 258)">
+  <!-- Cap body — larger for display -->
+  <path class="cap-body" d="M -90 155 L -100 21 Q -100 0 -76 0 L 76 0 Q 100 0 100 21 L 90 155 Z"/>
+  <path class="cap-rim" d="M -76 0 Q -76 -17 0 -21 Q 76 -17 76 0 L 64 0 Q 64 -11 0 -14 Q -64 -11 -64 0 Z"/>
+  <line class="cap-seam" x1="0" y1="-14" x2="0" y2="155" stroke-width="1" opacity="0.4"/>
+  <ellipse class="cap-shadow" cx="0" cy="155" rx="90" ry="7" opacity="0.5"/>
+
+  <!-- INTI letterforms — 4 characters, leaf vein geometry -->
+  <!-- Each letter is ~28px wide, spaced across cap face -->
+  <!-- Letter positions: I at -62, N at -32, T at 0, I at 30 -->
+
+  <!-- "I" #1 — leftmost -->
+  <line class="midrib" x1="-62" y1="32" x2="-62" y2="122" stroke-width="2.2"/>
+  <line class="midrib" x1="-72" y1="32" x2="-52" y2="32" stroke-width="2"/>
+  <line class="midrib" x1="-72" y1="122" x2="-52" y2="122" stroke-width="2"/>
+  <line class="vein-2" x1="-62" y1="50" x2="-69" y2="43" stroke-width="1.1"/>
+  <line class="vein-2" x1="-62" y1="50" x2="-55" y2="43" stroke-width="1.1"/>
+  <line class="vein-2" x1="-62" y1="68" x2="-69" y2="61" stroke-width="1"/>
+  <line class="vein-2" x1="-62" y1="68" x2="-55" y2="61" stroke-width="1"/>
+  <line class="vein-2" x1="-62" y1="86" x2="-69" y2="79" stroke-width="0.9"/>
+  <line class="vein-2" x1="-62" y1="86" x2="-55" y2="79" stroke-width="0.9"/>
+  <line class="vein-2" x1="-62" y1="104" x2="-69" y2="97" stroke-width="0.9"/>
+  <line class="vein-2" x1="-62" y1="104" x2="-55" y2="97" stroke-width="0.9"/>
+  <line class="vein-3" x1="-62" y1="59" x2="-66" y2="55" stroke-width="0.6"/>
+  <line class="vein-3" x1="-62" y1="77" x2="-66" y2="73" stroke-width="0.6"/>
+  <line class="vein-3" x1="-62" y1="95" x2="-66" y2="91" stroke-width="0.5"/>
+  <line class="vein-4" x1="-62" y1="59" x2="-58" y2="55" stroke-width="0.4"/>
+  <line class="vein-4" x1="-62" y1="77" x2="-58" y2="73" stroke-width="0.4"/>
+
+  <!-- "N" — second letter -->
+  <line class="midrib" x1="-36" y1="32" x2="-36" y2="122" stroke-width="2.2"/>
+  <line class="midrib" x1="-36" y1="32" x2="-10" y2="122" stroke-width="2"/>
+  <line class="midrib" x1="-10" y1="32" x2="-10" y2="122" stroke-width="2.2"/>
+  <line class="vein-2" x1="-36" y1="50" x2="-42" y2="44" stroke-width="1.1"/>
+  <line class="vein-2" x1="-36" y1="72" x2="-42" y2="66" stroke-width="1"/>
+  <line class="vein-2" x1="-36" y1="94" x2="-42" y2="88" stroke-width="0.9"/>
+  <line class="vein-2" x1="-36" y1="110" x2="-42" y2="104" stroke-width="0.9"/>
+  <line class="vein-2" x1="-10" y1="50" x2="-4" y2="44" stroke-width="1.1"/>
+  <line class="vein-2" x1="-10" y1="72" x2="-4" y2="66" stroke-width="1"/>
+  <line class="vein-2" x1="-10" y1="94" x2="-4" y2="88" stroke-width="0.9"/>
+  <line class="vein-2" x1="-10" y1="110" x2="-4" y2="104" stroke-width="0.9"/>
+  <!-- Diagonal veins on N stroke -->
+  <line class="vein-3" x1="-29" y1="52" x2="-32" y2="47" stroke-width="0.6"/>
+  <line class="vein-3" x1="-22" y1="72" x2="-25" y2="67" stroke-width="0.6"/>
+  <line class="vein-3" x1="-15" y1="92" x2="-18" y2="87" stroke-width="0.5"/>
+  <line class="vein-4" x1="-29" y1="52" x2="-26" y2="57" stroke-width="0.4"/>
+  <line class="vein-4" x1="-22" y1="72" x2="-19" y2="77" stroke-width="0.4"/>
+
+  <!-- "T" — third letter -->
+  <line class="midrib" x1="16" y1="32" x2="42" y2="32" stroke-width="2"/>
+  <line class="midrib" x1="29" y1="32" x2="29" y2="122" stroke-width="2.2"/>
+  <!-- T top bar veins -->
+  <line class="vein-2" x1="20" y1="32" x2="17" y2="27" stroke-width="1"/>
+  <line class="vein-2" x1="24" y1="32" x2="21" y2="27" stroke-width="0.9"/>
+  <line class="vein-2" x1="34" y1="32" x2="37" y2="27" stroke-width="1"/>
+  <line class="vein-2" x1="38" y1="32" x2="41" y2="27" stroke-width="0.9"/>
+  <!-- T vertical veins -->
+  <line class="vein-2" x1="29" y1="50" x2="22" y2="44" stroke-width="1.1"/>
+  <line class="vein-2" x1="29" y1="50" x2="36" y2="44" stroke-width="1.1"/>
+  <line class="vein-2" x1="29" y1="68" x2="22" y2="62" stroke-width="1"/>
+  <line class="vein-2" x1="29" y1="68" x2="36" y2="62" stroke-width="1"/>
+  <line class="vein-2" x1="29" y1="86" x2="22" y2="80" stroke-width="0.9"/>
+  <line class="vein-2" x1="29" y1="86" x2="36" y2="80" stroke-width="0.9"/>
+  <line class="vein-2" x1="29" y1="104" x2="22" y2="98" stroke-width="0.9"/>
+  <line class="vein-2" x1="29" y1="104" x2="36" y2="98" stroke-width="0.9"/>
+  <line class="vein-3" x1="29" y1="59" x2="24" y2="54" stroke-width="0.6"/>
+  <line class="vein-3" x1="29" y1="77" x2="24" y2="72" stroke-width="0.6"/>
+  <line class="vein-3" x1="29" y1="95" x2="24" y2="90" stroke-width="0.5"/>
+  <line class="vein-4" x1="29" y1="59" x2="34" y2="54" stroke-width="0.4"/>
+  <line class="vein-4" x1="29" y1="77" x2="34" y2="72" stroke-width="0.4"/>
+
+  <!-- "I" #2 — rightmost -->
+  <line class="midrib" x1="62" y1="32" x2="62" y2="122" stroke-width="2.2"/>
+  <line class="midrib" x1="52" y1="32" x2="72" y2="32" stroke-width="2"/>
+  <line class="midrib" x1="52" y1="122" x2="72" y2="122" stroke-width="2"/>
+  <line class="vein-2" x1="62" y1="50" x2="55" y2="43" stroke-width="1.1"/>
+  <line class="vein-2" x1="62" y1="50" x2="69" y2="43" stroke-width="1.1"/>
+  <line class="vein-2" x1="62" y1="68" x2="55" y2="61" stroke-width="1"/>
+  <line class="vein-2" x1="62" y1="68" x2="69" y2="61" stroke-width="1"/>
+  <line class="vein-2" x1="62" y1="86" x2="55" y2="79" stroke-width="0.9"/>
+  <line class="vein-2" x1="62" y1="86" x2="69" y2="79" stroke-width="0.9"/>
+  <line class="vein-2" x1="62" y1="104" x2="55" y2="97" stroke-width="0.9"/>
+  <line class="vein-2" x1="62" y1="104" x2="69" y2="97" stroke-width="0.9"/>
+  <line class="vein-3" x1="62" y1="59" x2="58" y2="55" stroke-width="0.6"/>
+  <line class="vein-3" x1="62" y1="77" x2="58" y2="73" stroke-width="0.6"/>
+  <line class="vein-4" x1="62" y1="59" x2="66" y2="55" stroke-width="0.4"/>
+  <line class="vein-4" x1="62" y1="77" x2="66" y2="73" stroke-width="0.4"/>
+</g>
+<text x="200" y="445" class="label" font-size="7" text-anchor="middle">DISPLAY · HERO SIZE · "INTI" ON CAP</text>
+
+<line x1="40" y1="460" x2="860" y2="460" class="rule" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ROW 3 — FULL LOCKUP -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="482" class="label" font-size="7">03 — FULL LOCKUP · MARK + WORDMARK + TAGLINE</text>
+
+<!-- Small cap in lockup -->
+<g transform="translate(82, 500) scale(0.52)">
+  <path class="cap-body" d="M -46 82 L -52 11 Q -52 0 -40 0 L 40 0 Q 52 0 52 11 L 46 82 Z"/>
+  <path class="cap-rim" d="M -40 0 Q -40 -9 0 -11 Q 40 -9 40 0 L 34 0 Q 34 -5 0 -7 Q -34 -5 -34 0 Z"/>
+  <line class="cap-seam" x1="0" y1="-7" x2="0" y2="82" stroke-width="0.6" opacity="0.5"/>
+  <line class="midrib" x1="-22" y1="18" x2="-22" y2="65" stroke-width="1.8"/>
+  <line class="midrib" x1="-30" y1="18" x2="-14" y2="18" stroke-width="1.6"/>
+  <line class="midrib" x1="-30" y1="65" x2="-14" y2="65" stroke-width="1.6"/>
+  <line class="vein-2" x1="-22" y1="36" x2="-27" y2="31" stroke-width="0.9"/>
+  <line class="vein-2" x1="-22" y1="36" x2="-17" y2="31" stroke-width="0.9"/>
+  <line class="vein-2" x1="-22" y1="52" x2="-27" y2="47" stroke-width="0.8"/>
+  <line class="vein-2" x1="-22" y1="52" x2="-17" y2="47" stroke-width="0.8"/>
+  <line class="midrib" x1="-4" y1="18" x2="-4" y2="65" stroke-width="1.8"/>
+  <line class="midrib" x1="-4" y1="18" x2="18" y2="65" stroke-width="1.6"/>
+  <line class="midrib" x1="18" y1="18" x2="18" y2="65" stroke-width="1.8"/>
+  <line class="vein-2" x1="-4" y1="36" x2="-9" y2="31" stroke-width="0.9"/>
+  <line class="vein-2" x1="-4" y1="52" x2="-9" y2="47" stroke-width="0.8"/>
+  <line class="vein-2" x1="18" y1="36" x2="23" y2="31" stroke-width="0.9"/>
+  <line class="vein-2" x1="18" y1="52" x2="23" y2="47" stroke-width="0.8"/>
+</g>
+
+<!-- Vertical rule -->
+<line x1="130" y1="500" x2="130" y2="560" stroke="#2e2b22" stroke-width="0.5"/>
+
+<!-- Wordmark -->
+<text x="145" y="540" font-family="'Cinzel', Georgia, serif" font-size="42" font-weight="900" fill="#6b6355" letter-spacing="0.04em">INTI</text>
+<text x="307" y="540" font-family="'Cinzel', Georgia, serif" font-size="42" font-weight="900" fill="#e8dcc8" letter-spacing="0.04em">TECH</text>
+<!-- Tagline -->
+<text x="146" y="560" font-family="'IM Fell English', Georgia, serif" font-size="12" fill="#4a4238" font-style="italic" letter-spacing="0.04em">I build what's needed.</text>
+
+<line x1="40" y1="590" x2="860" y2="590" class="rule" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ROW 4 — PLANT GEOMETRY ORNAMENTS -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="612" class="label" font-size="7">04 — PLANT GEOMETRY ORNAMENTS</text>
+
+<!-- ── Ornament A: Fibonacci Spiral ── -->
+<text x="40" y="634" class="label" font-size="6">A · FIBONACCI SPIRAL — hero bg / large sections</text>
+<g transform="translate(100, 650)">
+  <!-- Fibonacci spiral constructed from quarter arcs -->
+  <!-- Boxes: 1,1,2,3,5,8,13,21 — arcs sweep through corners -->
+  <path d="M 0 0 Q 8 0 8 8" stroke="#2e2b22" stroke-width="0.8" fill="none" opacity="0.5"/>
+  <path d="M 8 8 Q 8 16 0 16" stroke="#2e2b22" stroke-width="0.8" fill="none" opacity="0.5"/>
+  <path d="M 0 16 Q -16 16 -16 0" stroke="#2e2b22" stroke-width="0.9" fill="none" opacity="0.5"/>
+  <path d="M -16 0 Q -16 -24 8 -24" stroke="#2e2b22" stroke-width="1" fill="none" opacity="0.5"/>
+  <path d="M 8 -24 Q 47 -24 47 16" stroke="#2e2b22" stroke-width="1.1" fill="none" opacity="0.5"/>
+  <path d="M 47 16 Q 47 55 8 55" stroke="#2e2b22" stroke-width="1.2" fill="none" opacity="0.5"/>
+  <path d="M 8 55 Q -55 55 -55 -7" stroke="#2e2b22" stroke-width="1.3" fill="none" opacity="0.45"/>
+  <!-- Golden ratio marker dots -->
+  <circle cx="8" cy="8" r="1.2" fill="#c8612a" opacity="0.4"/>
+  <circle cx="0" cy="16" r="1" fill="#c8612a" opacity="0.35"/>
+  <circle cx="-16" cy="0" r="1.2" fill="#c8612a" opacity="0.3"/>
+  <circle cx="8" cy="-24" r="1" fill="#a8873a" opacity="0.3"/>
+  <!-- Square grid lines -->
+  <rect x="0" y="0" width="8" height="8" stroke="#1c1a13" stroke-width="0.3" fill="none" opacity="0.4"/>
+  <rect x="0" y="8" width="8" height="8" stroke="#1c1a13" stroke-width="0.3" fill="none" opacity="0.4"/>
+  <rect x="-16" y="0" width="16" height="16" stroke="#1c1a13" stroke-width="0.3" fill="none" opacity="0.4"/>
+  <rect x="-16" y="-24" width="24" height="24" stroke="#1c1a13" stroke-width="0.3" fill="none" opacity="0.35"/>
+  <rect x="8" y="-24" width="39" height="39" stroke="#1c1a13" stroke-width="0.3" fill="none" opacity="0.3"/>
+</g>
+<text x="100" y="730" class="label" font-size="6" text-anchor="middle">φ SPIRAL</text>
+
+<!-- ── Ornament B: Branching Fractal ── -->
+<text x="220" y="634" class="label" font-size="6">B · BRANCHING FRACTAL — margins / dividers</text>
+<g transform="translate(290, 730)">
+  <!-- Root system going DOWN -->
+  <line x1="0" y1="0" x2="0" y2="-80" stroke="#2e2b22" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- L1 branches -->
+  <line x1="0" y1="-55" x2="-22" y2="-75" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.65"/>
+  <line x1="0" y1="-55" x2="22" y2="-75" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.65"/>
+  <line x1="0" y1="-35" x2="-18" y2="-50" stroke="#2e2b22" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <line x1="0" y1="-35" x2="18" y2="-50" stroke="#2e2b22" stroke-width="0.9" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <!-- L2 branches -->
+  <line x1="-22" y1="-75" x2="-34" y2="-88" stroke="#2e2b22" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <line x1="-22" y1="-75" x2="-10" y2="-88" stroke="#2e2b22" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <line x1="22" y1="-75" x2="10" y2="-88" stroke="#2e2b22" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <line x1="22" y1="-75" x2="34" y2="-88" stroke="#2e2b22" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <line x1="-18" y1="-50" x2="-28" y2="-62" stroke="#2e2b22" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="-18" y1="-50" x2="-10" y2="-62" stroke="#2e2b22" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="18" y1="-50" x2="10" y2="-62" stroke="#2e2b22" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="18" y1="-50" x2="28" y2="-62" stroke="#2e2b22" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <!-- L3 micro twigs -->
+  <line x1="-34" y1="-88" x2="-40" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="-34" y1="-88" x2="-28" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="-10" y1="-88" x2="-16" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="-10" y1="-88" x2="-4" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="10" y1="-88" x2="4" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="10" y1="-88" x2="16" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="34" y1="-88" x2="28" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="34" y1="-88" x2="40" y2="-96" stroke="#2e2b22" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <!-- Terminal tip dots — canopy green -->
+  <circle cx="-40" cy="-96" r="1" fill="#5a8a48" opacity="0.6"/>
+  <circle cx="-28" cy="-96" r="1" fill="#5a8a48" opacity="0.6"/>
+  <circle cx="-16" cy="-96" r="1" fill="#5a8a48" opacity="0.55"/>
+  <circle cx="-4" cy="-96" r="1" fill="#5a8a48" opacity="0.55"/>
+  <circle cx="4" cy="-96" r="1" fill="#5a8a48" opacity="0.55"/>
+  <circle cx="16" cy="-96" r="1" fill="#5a8a48" opacity="0.55"/>
+  <circle cx="28" cy="-96" r="1" fill="#5a8a48" opacity="0.6"/>
+  <circle cx="40" cy="-96" r="1" fill="#5a8a48" opacity="0.6"/>
+  <circle cx="-10" cy="-62" r="0.8" fill="#8ab87a" opacity="0.4"/>
+  <circle cx="10" cy="-62" r="0.8" fill="#8ab87a" opacity="0.4"/>
+</g>
+<text x="290" y="750" class="label" font-size="6" text-anchor="middle">BRANCH</text>
+
+<!-- ── Ornament C: Single Leaf ── -->
+<text x="430" y="634" class="label" font-size="6">C · LEAF VEIN — bullets / accents / section marks</text>
+<g transform="translate(490, 680)">
+  <!-- Leaf silhouette -->
+  <path d="M 0 -45 Q 18 -30 20 0 Q 18 28 0 38 Q -14 28 -16 0 Q -14 -28 0 -45 Z"
+        stroke="#2e2b22" stroke-width="0.6" fill="none" opacity="0.5"/>
+  <!-- Midrib -->
+  <line x1="0" y1="-42" x2="0" y2="36" stroke="#3d5c35" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Secondary veins — left -->
+  <line x1="0" y1="-28" x2="-10" y2="-18" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="-14" x2="-13" y2="-4" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="0" x2="-14" y2="10" stroke="#3d5c35" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <line x1="0" y1="12" x2="-12" y2="20" stroke="#3d5c35" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="0" y1="22" x2="-8" y2="28" stroke="#3d5c35" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <!-- Secondary veins — right -->
+  <line x1="0" y1="-28" x2="12" y2="-18" stroke="#5a8a48" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="-14" x2="15" y2="-4" stroke="#5a8a48" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="0" x2="16" y2="10" stroke="#5a8a48" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.75"/>
+  <line x1="0" y1="12" x2="14" y2="20" stroke="#5a8a48" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="0" y1="22" x2="9" y2="28" stroke="#5a8a48" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <!-- Tertiary veins -->
+  <line x1="-10" y1="-18" x2="-14" y2="-22" stroke="#8ab87a" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="-13" y1="-4" x2="-16" y2="-8" stroke="#8ab87a" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="12" y1="-18" x2="16" y2="-22" stroke="#8ab87a" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="15" y1="-4" x2="18" y2="-8" stroke="#8ab87a" stroke-width="0.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+</g>
+<text x="490" y="750" class="label" font-size="6" text-anchor="middle">LEAF</text>
+
+<!-- ── Ornament D: Phyllotaxis dots ── -->
+<text x="590" y="634" class="label" font-size="6">D · PHYLLOTAXIS — background texture</text>
+<g transform="translate(690, 688)">
+  <!-- Golden angle = 137.508 degrees = 2.399 radians -->
+  <!-- Points plotted: r = sqrt(n) * scale, theta = n * golden_angle -->
+  <circle cx="0" cy="0" r="1.2" fill="#2e2b22" opacity="0.5"/>
+  <circle cx="8" cy="0" r="1" fill="#2e2b22" opacity="0.45"/>
+  <circle cx="-5" cy="6" r="1" fill="#2e2b22" opacity="0.45"/>
+  <circle cx="-9" cy="-4" r="1" fill="#2e2b22" opacity="0.4"/>
+  <circle cx="3" cy="-10" r="1" fill="#2e2b22" opacity="0.4"/>
+  <circle cx="11" cy="7" r="1" fill="#2e2b22" opacity="0.4"/>
+  <circle cx="-12" cy="5" r="1" fill="#2e2b22" opacity="0.38"/>
+  <circle cx="-7" cy="-12" r="1" fill="#2e2b22" opacity="0.38"/>
+  <circle cx="7" cy="-13" r="1" fill="#2e2b22" opacity="0.38"/>
+  <circle cx="14" cy="-4" r="1" fill="#2e2b22" opacity="0.35"/>
+  <circle cx="12" cy="14" r="1" fill="#2e2b22" opacity="0.35"/>
+  <circle cx="-1" cy="15" r="1" fill="#2e2b22" opacity="0.35"/>
+  <circle cx="-14" cy="-3" r="1" fill="#2e2b22" opacity="0.32"/>
+  <circle cx="-14" cy="10" r="1" fill="#2e2b22" opacity="0.32"/>
+  <circle cx="-4" cy="-16" r="1" fill="#2e2b22" opacity="0.32"/>
+  <circle cx="10" cy="-16" r="1" fill="#2e2b22" opacity="0.3"/>
+  <circle cx="17" cy="6" r="1" fill="#2e2b22" opacity="0.3"/>
+  <circle cx="16" cy="-10" r="1" fill="#2e2b22" opacity="0.3"/>
+  <circle cx="5" cy="18" r="1" fill="#2e2b22" opacity="0.28"/>
+  <circle cx="-10" cy="16" r="1" fill="#2e2b22" opacity="0.28"/>
+  <circle cx="-17" cy="5" r="1" fill="#2e2b22" opacity="0.28"/>
+  <circle cx="-16" cy="-10" r="1" fill="#2e2b22" opacity="0.25"/>
+  <circle cx="-8" cy="-18" r="1" fill="#2e2b22" opacity="0.25"/>
+  <circle cx="5" cy="-20" r="1" fill="#2e2b22" opacity="0.25"/>
+  <circle cx="18" cy="-14" r="1" fill="#2e2b22" opacity="0.22"/>
+  <circle cx="20" cy="2" r="1" fill="#2e2b22" opacity="0.22"/>
+  <circle cx="18" cy="14" r="1" fill="#2e2b22" opacity="0.22"/>
+  <circle cx="8" cy="21" r="1" fill="#2e2b22" opacity="0.2"/>
+  <circle cx="-6" cy="21" r="1" fill="#2e2b22" opacity="0.2"/>
+  <circle cx="-18" cy="13" r="1" fill="#2e2b22" opacity="0.2"/>
+  <circle cx="-21" cy="-1" r="1" fill="#2e2b22" opacity="0.18"/>
+  <circle cx="-18" cy="-14" r="0.8" fill="#2e2b22" opacity="0.18"/>
+  <circle cx="-10" cy="-21" r="0.8" fill="#2e2b22" opacity="0.18"/>
+  <circle cx="2" cy="-23" r="0.8" fill="#2e2b22" opacity="0.15"/>
+  <circle cx="14" cy="-20" r="0.8" fill="#2e2b22" opacity="0.15"/>
+  <circle cx="21" cy="-10" r="0.8" fill="#2e2b22" opacity="0.15"/>
+  <circle cx="22" cy="8" r="0.8" fill="#2e2b22" opacity="0.12"/>
+  <circle cx="18" cy="19" r="0.8" fill="#2e2b22" opacity="0.12"/>
+  <circle cx="10" cy="24" r="0.8" fill="#2e2b22" opacity="0.12"/>
+  <circle cx="-2" cy="25" r="0.8" fill="#2e2b22" opacity="0.1"/>
+</g>
+<text x="690" y="750" class="label" font-size="6" text-anchor="middle">PHYLLOTAXIS</text>
+
+<line x1="40" y1="768" x2="860" y2="768" class="rule" stroke-width="0.5"/>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- ROW 5 — IN-CONTEXT USAGE -->
+<!-- ════════════════════════════════════════════════════ -->
+<text x="40" y="790" class="label" font-size="7">05 — IN-CONTEXT · HOW ORNAMENTS FRAME CONTENT</text>
+
+<!-- Simulated blog post margin with ornaments -->
+<rect x="40" y="804" width="820" height="110" fill="#0f0d09" stroke="#2e2b22" stroke-width="0.5"/>
+
+<!-- Left margin ornament B (flipped) -->
+<g transform="translate(75, 870) scale(-0.5, 0.5)">
+  <line x1="0" y1="0" x2="0" y2="-60" stroke="#2e2b22" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="0" y1="-40" x2="-18" y2="-56" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <line x1="0" y1="-40" x2="18" y2="-56" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <line x1="0" y1="-24" x2="-14" y2="-38" stroke="#2e2b22" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="0" y1="-24" x2="14" y2="-38" stroke="#2e2b22" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="-18" y1="-56" x2="-26" y2="-66" stroke="#2e2b22" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <line x1="18" y1="-56" x2="26" y2="-66" stroke="#2e2b22" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <circle cx="-26" cy="-66" r="0.8" fill="#5a8a48" opacity="0.5"/>
+  <circle cx="26" cy="-66" r="0.8" fill="#5a8a48" opacity="0.5"/>
+</g>
+
+<!-- Right margin ornament B -->
+<g transform="translate(825, 870) scale(0.5)">
+  <line x1="0" y1="0" x2="0" y2="-60" stroke="#2e2b22" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <line x1="0" y1="-40" x2="-18" y2="-56" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <line x1="0" y1="-40" x2="18" y2="-56" stroke="#2e2b22" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <line x1="0" y1="-24" x2="-14" y2="-38" stroke="#2e2b22" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="0" y1="-24" x2="14" y2="-38" stroke="#2e2b22" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.4"/>
+  <line x1="-18" y1="-56" x2="-26" y2="-66" stroke="#2e2b22" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <line x1="18" y1="-56" x2="26" y2="-66" stroke="#2e2b22" stroke-width="0.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+  <circle cx="-26" cy="-66" r="0.8" fill="#5a8a48" opacity="0.5"/>
+  <circle cx="26" cy="-66" r="0.8" fill="#5a8a48" opacity="0.5"/>
+</g>
+
+<!-- Blog post content simulation -->
+<text x="107" y="830" font-family="'Courier New', monospace" font-size="8" fill="#c8612a" letter-spacing="0.2em">// 11 APRIL 2025 · ASP.NET CORE · ARCHITECTURE</text>
+<text x="107" y="852" font-family="Georgia, serif" font-size="16" fill="#e8dcc8" letter-spacing="0.03em">How I Built a Multi-Tenant System for 500+ AMSA Branches</text>
+<text x="107" y="872" font-family="Georgia, serif" font-size="10" fill="#6b6355" font-style="italic">Most reporting systems are boring. One database, one tenant, one set of users...</text>
+
+<!-- Leaf bullet accent -->
+<g transform="translate(107, 893) scale(0.22)">
+  <line x1="0" y1="-42" x2="0" y2="36" stroke="#3d5c35" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <line x1="0" y1="-20" x2="-10" y2="-10" stroke="#3d5c35" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="-20" x2="12" y2="-10" stroke="#5a8a48" stroke-width="0.7" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <line x1="0" y1="4" x2="-12" y2="14" stroke="#3d5c35" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="0" y1="4" x2="14" y2="14" stroke="#5a8a48" stroke-width="0.6" fill="none" stroke-linecap="round" opacity="0.7"/>
+</g>
+<text x="120" y="900" font-family="Georgia, serif" font-size="10" fill="#6b6355" font-style="italic">4 min read · Abdulawwal Intisor</text>
+
+<!-- ════════════════════════════════════════════════════ -->
+<!-- BOTTOM INSCRIPTION -->
+<!-- ════════════════════════════════════════════════════ -->
+<line x1="40" y1="930" x2="860" y2="930" stroke="#1c1a13" stroke-width="0.5"/>
+
+<!-- Palette dots reference -->
+<circle cx="60" cy="952" r="5" fill="#080705" stroke="#2e2b22" stroke-width="0.5"/>
+<circle cx="76" cy="952" r="5" fill="#c9b99a"/>
+<circle cx="92" cy="952" r="5" fill="#c8612a"/>
+<circle cx="108" cy="952" r="5" fill="#a8873a"/>
+<circle cx="124" cy="952" r="5" fill="#5a8a48"/>
+<circle cx="140" cy="952" r="5" fill="#8ab87a"/>
+<circle cx="156" cy="952" r="5" fill="#2e2b22"/>
+<text x="174" cy="952" y="956" class="label" font-size="7">VOID · PARCHMENT · EMBER · GOLD · CANOPY · SPROUT · SEDIMENT</text>
+
+<text x="450" y="985" font-family="Georgia, serif" font-size="11" fill="#2e2b22" text-anchor="middle" font-style="italic">
+  IN·novaTIve·TECH — I build what's needed.
+</text>
+<text x="450" y="1004" font-family="'Courier New', monospace" font-size="8" fill="#1c1a13" text-anchor="middle" letter-spacing="0.3em">
+  INTITECH · ABDULAWWAL INTISOR MAWUPEGO · intitech.dev · MMXXV
+</text>
+</svg>
