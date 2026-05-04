@@ -89,9 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // ── INSTANT METRIC UPDATES ──────────────────────────────────────────
             document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
-            document.getElementById('latest-hash').innerText = data.gitHub.activity.recentContributions[0]?.count > 0 ? 'ACTIVE' : 'STABLE';
+            document.getElementById('latest-hash').innerText = data.gitHub.latestHash || 'STABLE';
             document.getElementById('uptime').innerText = data.system.uptime;
             document.getElementById('active-projects-count').innerText = data.projects.length;
+            
+            const subtagEl = document.querySelector('.hero-subtag');
+            if (subtagEl && data.about.subtag) subtagEl.innerText = data.about.subtag;
 
             // ── INSTANT PROJECT GRID SWAP ───────────────────────────────────────
             const projectGrid = document.getElementById('project-grid');
