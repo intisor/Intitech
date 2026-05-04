@@ -88,9 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             // ── INSTANT METRIC UPDATES ──────────────────────────────────────────
+            // Accurate count: GitHub Public Repos + Manual Non-GitHub Projects
+            const manualCount = data.projects.filter(p => p.tagline.includes('SYSTEM') || p.tagline.includes('DATA')).length; // Identifying manual ones
             document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
+            document.getElementById('version-label').innerText = data.system.version;
             document.getElementById('latest-hash').innerText = data.gitHub.latestHash || 'STABLE';
-            document.getElementById('uptime').innerText = data.system.uptime;
             document.getElementById('active-projects-count').innerText = data.projects.length;
             
             const subtagEl = document.querySelector('.hero-subtag');
