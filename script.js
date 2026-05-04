@@ -82,7 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function hydratePortfolio() {
         try {
+            const start = performance.now();
             const response = await fetch(`${API_BASE}/portfolio/summary`);
+            const end = performance.now();
+            const latency = Math.round(end - start);
+
             if (!response.ok) throw new Error('API Sync Failed');
             
             const data = await response.json();
@@ -91,12 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
             document.getElementById('active-projects-count-hero').innerText = data.projects.length.toString().padStart(2, '0');
             document.getElementById('active-projects-count').innerText = data.projects.length;
+            
+            // Real Response Time Update
+            const latencyEl = document.getElementById('latency');
+            if (latencyEl) latencyEl.innerText = `${latency}ms`;
+            const tickerLatEl = document.getElementById('ticker-lat');
+            if (tickerLatEl) tickerLatEl.innerText = latency;
 
-            // Footer System Panel Hydration
-            document.getElementById('sys-response-time').innerText = data.system.responseTime;
-            document.getElementById('sys-requests').innerText = data.system.requestsToday.toLocaleString();
-            document.getElementById('sys-uptime').innerText = data.system.uptime;
-            document.getElementById('sys-active-projects').innerText = data.projects.length;
+            // Requests Today Update
+            const requestsEl = document.getElementById('sys-requests');
+            if (requestsEl) requestsEl.innerText = data.system.requestsToday.toLocaleString();
             
             const subtagEl = document.querySelector('.hero-subtag');
             if (subtagEl && data.about.subtag) subtagEl.innerText = data.about.subtag;
