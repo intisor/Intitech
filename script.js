@@ -1,11 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
+function initPortfolio() {
     // ── Alphabet Shuffle Logic for Hero Title ────────────────────────────────────
     const shuffleLetters = document.querySelectorAll('.shuffle-letter');
+    console.log(`[INIT] Found ${shuffleLetters.length} shuffle letters.`);
     
     shuffleLetters.forEach((el, index) => {
         const target = el.getAttribute('data-target');
         let currentCode = 65; // 'A'
         
+        // Staggered start for each letter
         setTimeout(() => {
             const interval = setInterval(() => {
                 const currentLetter = String.fromCharCode(currentCode);
@@ -16,10 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.style.color = 'inherit';
                 } else {
                     currentCode++;
-                    if (currentCode > 90) currentCode = 65;
+                    if (currentCode > 90) currentCode = 65; // Cycle A-Z
                 }
-            }, 50 + (index * 10));
-        }, index * 100);
+            }, 50 + (index * 15)); // Slightly slower, more rhythmic shuffle
+        }, index * 120);
     });
 
     // ── Phyllotaxis (Fibonacci Spiral) Background ───────────────────────────────
@@ -170,14 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 5. About Section
             const aboutBio = document.getElementById('about-bio');
-            aboutBio.innerHTML = `
-                <p class="about-opening">"${data.about.opening.replace('\n', '<br>')}"</p>
-                <p>${data.about.bio}</p>
-                <p>${data.about.careerGoal}</p>
-                <p>${data.about.affiliations}</p>
-            `;
+            if (aboutBio && data.about) {
+                const opening = data.about.opening ? data.about.opening.replace(/\n/g, '<br>') : '';
+                aboutBio.innerHTML = `
+                    <p class="about-opening">"${opening}"</p>
+                    <p>${data.about.bio || ''}</p>
+                    <p>${data.about.careerGoal || ''}</p>
+                    <p>${data.about.affiliations || ''}</p>
+                `;
+            }
 
             const aboutMeta = document.getElementById('about-meta-list');
+            if (aboutMeta && data.about) {
             
             // Reverting to the exact JSON structure provided: gitHub.languages.percentages
             const languages = data.gitHub.languages?.percentages || {};
@@ -195,16 +201,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 ['Domain', 'intitech.dev']
             ];
 
-            aboutMeta.innerHTML = metaRows.map(([label, val], idx) => `
-                <div class="ameta-row" ${idx === metaRows.length - 1 ? 'style="border-bottom: none"' : ''}>
-                    <span class="ameta-label">${label}</span>
-                    <span class="ameta-val">${val}</span>
-                </div>
-            `).join('');
+                aboutMeta.innerHTML = metaRows.map(([label, val], idx) => `
+                    <div class="ameta-row" ${idx === metaRows.length - 1 ? 'style="border-bottom: none"' : ''}>
+                        <span class="ameta-label">${label}</span>
+                        <span class="ameta-val">${val}</span>
+                    </div>
+                `).join('');
+            }
 
             // 6. Update Ticker
-            const tickerLatEl = document.getElementById('ticker-lat');
-            const latencyEl = document.getElementById('latency');
             
             const updateLatency = () => {
                 const base = 20;
@@ -229,4 +234,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Console Signature
     console.log("%cINTITECH %c// I build what's needed.", "color: #c8612a; font-weight: bold; font-size: 20px;", "color: #6b6355; font-style: italic;");
-});
+}
+
+// Ensure initialization happens even if script is loaded after DOMContentLoaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPortfolio);
+} else {
+    initPortfolio();
+}
