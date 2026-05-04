@@ -166,9 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const aboutMeta = document.getElementById('about-meta-list');
             
-            // Fix: GitHub languages path from 'languages.percentages' to 'topLanguages'
-            const topLangs = data.gitHub.topLanguages || {};
-            const langKeys = Object.keys(topLangs);
+            // Reverting to the exact JSON structure provided: gitHub.languages.percentages
+            const languages = data.gitHub.languages?.percentages || {};
+            const langKeys = Object.keys(languages);
             const primaryStack = langKeys.length >= 2 
                 ? `${langKeys[0]} · ${langKeys[1]}` 
                 : (langKeys[0] || 'C# · ASP.NET');
