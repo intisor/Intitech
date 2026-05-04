@@ -76,7 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // ── Portfolio Hydration Engine ─────────────────────────────────────────────
-    const API_BASE = 'https://api.intitech.dev';
+    const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:5122' // Standard ASP.NET local port
+        : 'https://api.intitech.dev';
 
     async function hydratePortfolio() {
         try {
@@ -170,8 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setupReveal();
 
         } catch (error) {
-            console.error('Hydration Error:', error);
-            document.getElementById('project-grid').innerHTML = '<div class="loading-state mono" style="color: var(--ember)">SYSTEM OFFLINE: FALLBACK ENGAGED</div>';
+            console.warn('Hydration Offline:', error.message);
+            // We keep the static backup projects visible in the DOM
         }
     }
 
