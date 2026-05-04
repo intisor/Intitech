@@ -99,9 +99,7 @@
             </h1>
             <div class="hero-divider"></div>
             <p class="hero-tagline">
-                "I build what's needed.<br>
-                Not what's trending. Not what's been built.<br>
-                What's needed."
+                "I build what's needed."<br>
             </p>
             <p class="hero-subtag">PATTERN RECOGNITION FROM PROXIMITY · AKURE, NIGERIA</p>
             
@@ -134,62 +132,9 @@
         <svg class="ornament-branch"><use href="#branch-fractal" /></svg>
     </div>
     <section id="works" class="container">
-        <div class="pgrid">
-            <!-- Project 1 -->
-            <div class="pcard">
-                <div class="ptag">01 · REPORTRING SYSTEM</div>
-                <h3 class="pname">AMSA Reporting System</h3>
-                <p class="pdesc">Digitised monthly activity reporting for AMSA Nigeria. National → State → Unit hierarchy with full report state machine and JWT role auth.</p>
-                <div class="pstack">
-                    <span class="spill">Blazor Server</span>
-                    <span class="spill">SQL Server</span>
-                    <span class="spill">EF Core</span>
-                    <span class="spill">JWT</span>
-                </div>
-                <div class="pmet">↗ Multi-tenant · Role-based access</div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="pcard">
-                <div class="ptag">02 · FINANCIAL DATA</div>
-                <h3 class="pname">FinSight</h3>
-                <p class="pdesc">B2B financial data layer for Nigerian SMEs — bypassing absent bank APIs via OAuth email parsing and background PDF ingestion.</p>
-                <div class="pstack">
-                    <span class="spill">ASP.NET Core</span>
-                    <span class="spill">Hangfire</span>
-                    <span class="spill">PdfPig</span>
-                    <span class="spill">OAuth</span>
-                </div>
-                <div class="pmet">↗ Gmail/Outlook OAuth · Background workers</div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="pcard">
-                <div class="ptag">03 · LOAD TESTING</div>
-                <h3 class="pname">Inti.Kasala</h3>
-                <p class="pdesc">Pluggable ASP.NET load and stress testing framework. Claude AI engine for analysis. Real-time results streamed via SignalR.</p>
-                <div class="pstack">
-                    <span class="spill">ASP.NET Core</span>
-                    <span class="spill">SignalR</span>
-                    <span class="spill">React</span>
-                    <span class="spill">Claude API</span>
-                </div>
-                <div class="pmet">↗ AI-powered · Real-time streaming</div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="pcard">
-                <div class="ptag">04 · TAILORING ERP</div>
-                <h3 class="pname">ZikFash</h3>
-                <p class="pdesc">A premium PWA for modern tailoring shops. Moving from paper measurements to secure, PIN-based cloud sync and fabric management.</p>
-                <div class="pstack">
-                    <span class="spill">PWA</span>
-                    <span class="spill">IndexedDB</span>
-                    <span class="spill">Cloud Sync</span>
-                    <span class="spill">GSAP</span>
-                </div>
-                <div class="pmet">↗ Built for local impact · Offline-first</div>
-            </div>
+        <div class="pgrid" id="project-grid">
+            <!-- Projects will be injected here -->
+            <div class="loading-state mono">INITIALIZING SYSTEM DATA...</div>
         </div>
 
         <!-- Live System Panel -->
@@ -214,7 +159,7 @@
                 </div>
                 <div class="metric-cell">
                     <div class="m-label">ACTIVE PROJECTS</div>
-                    <div class="m-value gold">4</div>
+                    <div class="m-value gold" id="active-projects-count">--</div>
                 </div>
             </div>
         </div>
@@ -228,19 +173,8 @@
     </div>
     <section class="container">
         <div class="swall">
-            <div class="sinscription">
-                <span class="sglyph tier-1">C#</span>
-                <span class="sglyph tier-1">ASP.NET Core</span>
-                <span class="sglyph tier-1">EF Core</span>
-                <span class="sglyph tier-1">SQL Server</span>
-                <span class="sglyph tier-2">REST API</span>
-                <span class="sglyph tier-2">Clean Architecture</span>
-                <span class="sglyph tier-2">SignalR</span>
-                <span class="sglyph tier-2">Hangfire</span>
-                <span class="sglyph tier-3">React</span>
-                <span class="sglyph tier-3">Blazor</span>
-                <span class="sglyph tier-3">WebRTC</span>
-                <span class="sglyph tier-3">Chrome MV3</span>
+            <div class="sinscription" id="skills-wall">
+                <!-- Skills will be injected here -->
             </div>
         </div>
     </section>
@@ -253,56 +187,11 @@
     </div>
     <section id="about" class="container">
         <div class="about-wrap">
-            <div class="about-text">
-                <p class="about-opening">
-                    "Most developers build for markets.<br>
-                    I build from proximity."
-                </p>
-                <p>
-                    Final-year Software Engineering student at FUTA — with real systems already in production. 
-                    Self-taught before formal education. Building from first principles, for real problems.
-                </p>
-                <p>
-                    Career goal: become a highly skilled C# engineer building fast, resource-efficient systems. 
-                    Not just writing code — engineering things that endure.
-                </p>
-                <p>
-                    Microsoft Learn Student Ambassador. Assistant General Secretary, AMSA Nigeria. 
-                    Writer — at the intersection of technology, philosophy, and the Nigerian condition.
-                </p>
+            <div class="about-text" id="about-bio">
+                <!-- Bio will be injected here -->
             </div>
-            <div class="about-meta">
-                <div class="ameta-row">
-                    <span class="ameta-label">Origin</span>
-                    <span class="ameta-val">Akure, Nigeria</span>
-                </div>
-                <div class="about-meta reveal">
-                    <div class="ameta-row">
-                        <span class="ameta-label">Location</span
-                        ><span class="ameta-val">Akure, Nigeria</span>
-                    </div>
-                    <div class="ameta-row">
-                        <span class="ameta-label">Primary Stack</span
-                        ><span class="ameta-val">C# · ASP.NET Core</span>
-                    </div>
-                    <div class="ameta-row">
-                        <span class="ameta-label">Status</span
-                        ><span class="ameta-val">Available for freelance</span>
-                    </div>
-                    <div class="ameta-row">
-                        <span class="ameta-label">Education</span
-                        ><span class="ameta-val"
-                            >FUTA — Software Engineering</span
-                        >
-                    </div>
-                    <div class="ameta-row">
-                        <span class="ameta-label">Programme</span
-                        ><span class="ameta-val">MLSA Alpha</span>
-                    </div>
-                    <div class="ameta-row" style="border-bottom: none">
-                        <span class="ameta-label">Domain</span
-                        ><span class="ameta-val">intitech.dev</span>
-                    </div>
+                <div class="about-meta reveal" id="about-meta-list">
+                    <!-- Meta info will be injected here -->
                 </div>
             </div>
         </section>

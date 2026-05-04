@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Alphabet Shuffle Logic for Hero Title
+    // ── Alphabet Shuffle Logic for Hero Title ────────────────────────────────────
     const shuffleLetters = document.querySelectorAll('.shuffle-letter');
     
     shuffleLetters.forEach((el, index) => {
         const target = el.getAttribute('data-target');
         let currentCode = 65; // 'A'
         
-        // Add a small delay for each letter to make it staggered
         setTimeout(() => {
             const interval = setInterval(() => {
                 const currentLetter = String.fromCharCode(currentCode);
@@ -14,36 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (currentLetter === target) {
                     clearInterval(interval);
-                    el.style.color = 'inherit'; // Reset to CSS color
+                    el.style.color = 'inherit';
                 } else {
                     currentCode++;
-                    if (currentCode > 90) currentCode = 65; // Loop A-Z if target not found (fallback)
+                    if (currentCode > 90) currentCode = 65;
                 }
-            }, 50 + (index * 10)); // Staggered speed
+            }, 50 + (index * 10));
         }, index * 100);
     });
 
-    // Live Latency Simulation
-    const latencyEl = document.getElementById('latency');
-    const tickerLatEl = document.getElementById('ticker-lat');
-
-    function updateLatency() {
-        const baseLatency = 20;
-        const jitter = Math.floor(Math.random() * 15);
-        const currentLatency = baseLatency + jitter;
-        
-        if (latencyEl) latencyEl.innerText = `${currentLatency}ms`;
-        if (tickerLatEl) tickerLatEl.innerText = currentLatency;
-    }
-
-    setInterval(updateLatency, 3000);
-
-    // Phyllotaxis (Fibonacci Spiral) Background
+    // ── Phyllotaxis (Fibonacci Spiral) Background ───────────────────────────────
     const phyllotaxis = document.getElementById('phyllotaxis');
     if (phyllotaxis) {
         const dotCount = 200;
         const goldenAngle = 137.5 * (Math.PI / 180);
-        const radius = 2;
 
         for (let i = 0; i < dotCount; i++) {
             const r = 5 * Math.sqrt(i);
@@ -64,62 +47,135 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Scroll Reveal Effect
-    const reveals = document.querySelectorAll('.pcard, .about-text, .about-meta, .sinscription');
-    
-    const revealOnScroll = () => {
-        for (let i = 0; i < reveals.length; i++) {
-            const windowHeight = window.innerHeight;
-            const elementTop = reveals[i].getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < windowHeight - elementVisible) {
-                reveals[i].style.opacity = '1';
-                reveals[i].style.transform = 'translateY(0)';
+    // ── Scroll Reveal Effect ───────────────────────────────────────────────────
+    const setupReveal = () => {
+        const reveals = document.querySelectorAll('.pcard, .about-text, .about-meta, .sinscription');
+        reveals.forEach(el => {
+            if (!el.dataset.revealSet) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+                el.dataset.revealSet = "true";
             }
-        }
-    };
+        });
 
-    // Set initial styles for reveal
-    reveals.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'all 0.6s ease-out';
-    });
-
-    window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); // Initial check
-
-    // Fetch GitHub Data
-    async function fetchGitHubStats() {
-        try {
-            // User stats
-            const userResponse = await fetch('https://api.github.com/users/intisor');
-            if (userResponse.ok) {
-                const userData = await userResponse.json();
-                const repoCountEl = document.getElementById('repo-count');
-                if (repoCountEl) repoCountEl.innerText = userData.public_repos;
-            }
-
-            // Recent events for latest hash
-            const eventsResponse = await fetch('https://api.github.com/users/intisor/events/public');
-            if (eventsResponse.ok) {
-                const events = await eventsResponse.json();
-                const pushEvent = events.find(e => e.type === 'PushEvent');
-                if (pushEvent && pushEvent.payload.commits.length > 0) {
-                    const hash = pushEvent.payload.commits[0].sha.substring(0, 7);
-                    const hashEl = document.getElementById('latest-hash');
-                    if (hashEl) hashEl.innerText = hash.toUpperCase();
+        const revealOnScroll = () => {
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].style.opacity = '1';
+                    reveals[i].style.transform = 'translateY(0)';
                 }
             }
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+    };
+
+    // ── Portfolio Hydration Engine ─────────────────────────────────────────────
+    const API_BASE = 'https://api.intitech.dev';
+
+    async function hydratePortfolio() {
+        try {
+            const response = await fetch(`${API_BASE}/portfolio/summary`);
+            if (!response.ok) throw new Error('API Sync Failed');
+            
+            const data = await response.json();
+            
+            // 1. Hero Metrics
+            document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
+            document.getElementById('latest-hash').innerText = data.gitHub.activity.recentContributions[0]?.count > 0 ? 'ACTIVE' : 'STABLE';
+            document.getElementById('uptime').innerText = data.system.uptime;
+
+            // 2. Projects Grid
+            const projectGrid = document.getElementById('project-grid');
+            projectGrid.innerHTML = ''; // Clear loading state
+            
+            data.projects.forEach((proj, idx) => {
+                const card = document.createElement('div');
+                card.className = 'pcard';
+                card.innerHTML = `
+                    <div class="ptag">${(idx + 1).toString().padStart(2, '0')} · ${proj.tagline}</div>
+                    <h3 class="pname">${proj.name}</h3>
+                    <p class="pdesc">${proj.description}</p>
+                    <div class="pstack">
+                        ${proj.stack.map(s => `<span class="spill">${s}</span>`).join('')}
+                    </div>
+                    <div class="pfooter">
+                        <div class="pmet">${proj.metrics}</div>
+                        ${proj.codingTime ? `<div class="pwork mono">Logged: ${proj.codingTime}</div>` : ''}
+                    </div>
+                `;
+                // Add click support if link exists
+                if (proj.link) {
+                    card.style.cursor = 'pointer';
+                    card.onclick = () => window.open(proj.link, '_blank');
+                }
+                projectGrid.appendChild(card);
+            });
+
+            // 3. System Panel
+            document.getElementById('active-projects-count').innerText = data.projects.length;
+
+            // 4. Skills Wall
+            const skillsWall = document.getElementById('skills-wall');
+            skillsWall.innerHTML = data.skills.map(skill => `
+                <span class="sglyph tier-${skill.tier}">${skill.name}</span>
+            `).join('');
+
+            // 5. About Section
+            const aboutBio = document.getElementById('about-bio');
+            aboutBio.innerHTML = `
+                <p class="about-opening">"${data.about.opening.replace('\n', '<br>')}"</p>
+                <p>${data.about.bio}</p>
+                <p>${data.about.careerGoal}</p>
+                <p>${data.about.affiliations}</p>
+            `;
+
+            const aboutMeta = document.getElementById('about-meta-list');
+            const metaRows = [
+                ['Location', data.about.location],
+                ['Primary Stack', data.gitHub.languages.percentages ? Object.keys(data.gitHub.languages.percentages)[0] + ' · ' + Object.keys(data.gitHub.languages.percentages)[1] : 'C# · ASP.NET'],
+                ['Status', data.about.status],
+                ['Education', 'FUTA — Software Engineering'],
+                ['Programme', 'MLSA Alpha'],
+                ['Domain', 'intitech.dev']
+            ];
+
+            aboutMeta.innerHTML = metaRows.map(([label, val], idx) => `
+                <div class="ameta-row" ${idx === metaRows.length - 1 ? 'style="border-bottom: none"' : ''}>
+                    <span class="ameta-label">${label}</span>
+                    <span class="ameta-val">${val}</span>
+                </div>
+            `).join('');
+
+            // 6. Update Ticker
+            const tickerLatEl = document.getElementById('ticker-lat');
+            const latencyEl = document.getElementById('latency');
+            
+            const updateLatency = () => {
+                const base = 20;
+                const jitter = Math.floor(Math.random() * 15);
+                const val = base + jitter;
+                if (tickerLatEl) tickerLatEl.innerText = val;
+                if (latencyEl) latencyEl.innerText = `${val}ms`;
+            };
+            setInterval(updateLatency, 3000);
+            updateLatency();
+
+            // Setup reveals for newly injected elements
+            setupReveal();
+
         } catch (error) {
-            console.error('GitHub Sync Error:', error);
-            const hashEl = document.getElementById('latest-hash');
-            if (hashEl) hashEl.innerText = 'OFFLINE';
+            console.error('Hydration Error:', error);
+            document.getElementById('project-grid').innerHTML = '<div class="loading-state mono" style="color: var(--ember)">SYSTEM OFFLINE: FALLBACK ENGAGED</div>';
         }
     }
 
-    fetchGitHubStats();
+    hydratePortfolio();
 
     // Console Signature
     console.log("%cINTITECH %c// I build what's needed.", "color: #c8612a; font-weight: bold; font-size: 20px;", "color: #6b6355; font-style: italic;");

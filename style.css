@@ -321,6 +321,19 @@ section {
     color: var(--ash);
 }
 
+.pfooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.pwork {
+    font-size: 0.65rem;
+    color: var(--sprout);
+    opacity: 0.8;
+}
+
 /* Skills Wall - Stone Inscription Style */
 .swall {
     text-align: center;
@@ -419,6 +432,21 @@ section {
 }
 
 .m-value.gold { color: var(--gold); }
+
+/* Dynamic Hydration Styles */
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--space-lg);
+    color: var(--ash);
+    letter-spacing: 0.5em;
+    animation: loading-pulse 2s infinite ease-in-out;
+}
+
+@keyframes loading-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.98); }
+    50% { opacity: 0.7; transform: scale(1); }
+}
 
 /* About Section */
 .about-wrap {
