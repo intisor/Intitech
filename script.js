@@ -87,18 +87,24 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const data = await response.json();
             
-            // 1. Hero Metrics
+            // ── INSTANT METRIC UPDATES ──────────────────────────────────────────
             document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
             document.getElementById('latest-hash').innerText = data.gitHub.activity.recentContributions[0]?.count > 0 ? 'ACTIVE' : 'STABLE';
             document.getElementById('uptime').innerText = data.system.uptime;
+            document.getElementById('active-projects-count').innerText = data.projects.length;
 
-            // 2. Projects Grid
+            // ── INSTANT PROJECT GRID SWAP ───────────────────────────────────────
             const projectGrid = document.getElementById('project-grid');
-            projectGrid.innerHTML = ''; // Clear loading state
+            
+            // Create the new fragment for faster rendering
+            const fragment = document.createDocumentFragment();
             
             data.projects.forEach((proj, idx) => {
                 const card = document.createElement('div');
                 card.className = 'pcard';
+                card.style.opacity = '0'; // Prepare for fade-in
+                card.style.transform = 'translateY(10px)';
+                
                 card.innerHTML = `
                     <div class="ptag">${(idx + 1).toString().padStart(2, '0')} · ${proj.tagline}</div>
                     <h3 class="pname">${proj.name}</h3>
@@ -111,13 +117,31 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${proj.codingTime ? `<div class="pwork mono">Logged: ${proj.codingTime}</div>` : ''}
                     </div>
                 `;
-                // Add click support if link exists
+
                 if (proj.link) {
                     card.style.cursor = 'pointer';
                     card.onclick = () => window.open(proj.link, '_blank');
                 }
-                projectGrid.appendChild(card);
+                fragment.appendChild(card);
             });
+
+            // Swap out the entire grid content at once for zero flicker
+            projectGrid.style.opacity = '0.5';
+            setTimeout(() => {
+                projectGrid.innerHTML = '';
+                projectGrid.appendChild(fragment);
+                projectGrid.style.opacity = '1';
+                
+                // Trigger the reveal for new cards
+                const newCards = projectGrid.querySelectorAll('.pcard');
+                newCards.forEach((card, i) => {
+                    setTimeout(() => {
+                        card.style.transition = 'all 0.4s ease-out';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, i * 50);
+                });
+            }, 50);
 
             // 3. System Panel
             document.getElementById('active-projects-count').innerText = data.projects.length;
