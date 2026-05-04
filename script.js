@@ -209,17 +209,8 @@ function initPortfolio() {
                 `).join('');
             }
 
-            // 6. Update Ticker
-            
-            const updateLatency = () => {
-                const base = 20;
-                const jitter = Math.floor(Math.random() * 15);
-                const val = base + jitter;
-                if (tickerLatEl) tickerLatEl.innerText = val;
-                if (latencyEl) latencyEl.innerText = `${val}ms`;
-            };
-            setInterval(updateLatency, 3000);
-            updateLatency();
+            // 6. Update Ticker (Static real latency)
+            // No jitter — just using the real value measured at start
 
             // Setup reveals for newly injected elements
             setupReveal();
