@@ -91,6 +91,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
             document.getElementById('active-projects-count-hero').innerText = data.projects.length.toString().padStart(2, '0');
             document.getElementById('active-projects-count').innerText = data.projects.length;
+
+            // Footer System Panel Hydration
+            document.getElementById('sys-response-time').innerText = data.system.responseTime;
+            document.getElementById('sys-requests').innerText = data.system.requestsToday.toLocaleString();
+            document.getElementById('sys-uptime').innerText = data.system.uptime;
+            document.getElementById('sys-active-projects').innerText = data.projects.length;
             
             const subtagEl = document.querySelector('.hero-subtag');
             if (subtagEl && data.about.subtag) subtagEl.innerText = data.about.subtag;

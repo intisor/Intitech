@@ -424,6 +424,47 @@ section {
     font-size: 0.7rem;
     color: var(--ash);
 }
+/* --- SYSTEM PANEL FOOTER --- */
+.system-panel-footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin: 3rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.system-panel-footer .sys-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.system-panel-footer .sys-label {
+    color: var(--sediment);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+}
+
+.system-panel-footer .sys-value {
+    color: var(--script);
+    font-weight: 500;
+}
+
+.system-panel-footer .status-ok .sys-value {
+    color: var(--sprout);
+    text-shadow: 0 0 10px rgba(138, 184, 122, 0.3);
+}
+
+@media (max-width: 768px) {
+    .system-panel-footer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
 .m-value {
     font-family: 'JetBrains Mono', monospace;
