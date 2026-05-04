@@ -162,9 +162,17 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             const aboutMeta = document.getElementById('about-meta-list');
+            
+            // Fix: GitHub languages path from 'languages.percentages' to 'topLanguages'
+            const topLangs = data.gitHub.topLanguages || {};
+            const langKeys = Object.keys(topLangs);
+            const primaryStack = langKeys.length >= 2 
+                ? `${langKeys[0]} · ${langKeys[1]}` 
+                : (langKeys[0] || 'C# · ASP.NET');
+
             const metaRows = [
                 ['Location', data.about.location],
-                ['Primary Stack', data.gitHub.languages.percentages ? Object.keys(data.gitHub.languages.percentages)[0] + ' · ' + Object.keys(data.gitHub.languages.percentages)[1] : 'C# · ASP.NET'],
+                ['Primary Stack', primaryStack],
                 ['Status', data.about.status],
                 ['Education', 'FUTA — Software Engineering'],
                 ['Programme', 'MLSA Alpha'],
