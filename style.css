@@ -45,6 +45,11 @@ html {
     background-color: var(--void);
 }
 
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 body {
     background-color: var(--void);
     color: var(--parchment);
@@ -202,6 +207,8 @@ section {
     color: var(--ash);
     font-size: 0.8rem;
     letter-spacing: 0.1em;
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .hero-ctas {
@@ -262,7 +269,7 @@ section {
 /* Project Cards */
 .pgrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
     gap: var(--space-md);
 }
 
@@ -692,9 +699,106 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .hero-name { font-size: 4rem; }
-    .about-wrap { grid-template-columns: 1fr; }
-    .metrics-grid { grid-template-columns: 1fr; }
+    .main-header {
+        padding: var(--space-sm) 0;
+        background: rgba(8, 7, 5, 0.9);
+    }
+
+    .nav-wrap {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-links {
+        display: none; /* Hide standard links on mobile, or implement a drawer */
+    }
+
+    /* Add a simple mobile menu indicator or just keep it minimal */
+    .nav-logo span {
+        font-size: 0.9rem;
+    }
+
+    .hero {
+        min-height: 100vh;
+        padding-top: var(--space-xl);
+        padding-bottom: var(--space-xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero-name { 
+        font-size: clamp(3rem, 18vw, 5rem);
+        margin-top: var(--space-md);
+    }
+
+    .hero-tagline {
+        font-size: 1.15rem;
+        padding: 0 var(--space-xs);
+    }
+
+    .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        margin: var(--space-lg) auto 0;
+        gap: 12px;
+    }
+
+    .hero-ctas .btn {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .hero-pulse {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        margin-top: var(--space-md);
+    }
+
+    .pulse-item {
+        background: rgba(28, 26, 19, 0.5);
+        padding: 8px 16px;
+        border-radius: 4px;
+        border: 1px solid var(--sediment);
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .section-divider {
+        gap: var(--space-md);
+        padding: var(--space-xl) 0;
+    }
+
+    .pgrid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-wrap { 
+        grid-template-columns: 1fr; 
+        gap: var(--space-lg); 
+    }
+
+    .metrics-grid { 
+        grid-template-columns: 1fr; 
+        gap: var(--space-sm); 
+    }
+
+    .system-panel {
+        padding: var(--space-md);
+    }
+
+    .metric-cell {
+        padding: 12px;
+        border-left: none;
+        border-bottom: 1px solid var(--sediment);
+    }
+
+    .metric-cell:last-child {
+        border-bottom: none;
+    }
 }
 
 /* High-Fidelity SVG Geometry Styles */
