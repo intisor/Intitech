@@ -236,6 +236,18 @@ body {
     box-shadow: 0 40px 100px rgba(26, 18, 8, 0.1);
     perspective: 1200px;
     transform-style: preserve-3d;
+    --paper-delay: 11s;
+    --text-delay: 17s;
+
+    /* Timing Controls */
+    --start-delay: 2s;
+    --rig-flatten-dur: 2s;
+    --transform-dur: 5s;
+
+    /* Cut Line Controls */
+    --cut-x: calc(50% - (var(--fab-w) / 2));
+    --cut-y: calc(50% - 7px);
+    --cut-thick: 2px;
 }
 
 #logo-rig {
@@ -248,7 +260,7 @@ body {
     transform-origin: center center;
     transform: rotateX(55deg) rotateZ(-15deg);
     transform-style: preserve-3d;
-    transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform var(--rig-flatten-dur) cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Deterministic Animation Variables */
     --fab-w: 400px;
@@ -260,6 +272,11 @@ body {
     --snip-dur: 1.8s;
     --paper-delay: 11s;
     --text-delay: 17s;
+
+    /* Cut Line Controls */
+    --cut-x: calc(50% - (var(--fab-w) / 2));
+    --cut-y: calc(50% - 7px);
+    --cut-thick: 2px;
 }
 
 #logo-rig.transformed {
@@ -272,7 +289,7 @@ body {
     left: var(--start);
     transform: translate(-50%, -50%);
     transform-style: preserve-3d;
-    animation: move var(--anim-dur) ease forwards 2s;
+    animation: move var(--anim-dur) ease forwards var(--start-delay);
     z-index: 10;
 }
 
@@ -359,11 +376,11 @@ body {
 }
 
 #rotator-top {
-    animation: rotateTop var(--snip-dur) linear 5 forwards 2s;
+    animation: rotateTop var(--snip-dur) linear 5 forwards var(--start-delay);
 }
 
 #rotator-bottom {
-    animation: rotateBottom var(--snip-dur) linear 5 forwards 2s;
+    animation: rotateBottom var(--snip-dur) linear 5 forwards var(--start-delay);
 }
 
 @keyframes rotateTop {
@@ -434,6 +451,7 @@ body {
     /* Translate aligns the joint end exactly with Diagonal's Bottom-Left handle.
        540deg roll flips the assembly so its handle is on the Far-Right. */
     transform: translate(-14px, 96px) rotateZ(540deg);
+    transition: all var(--transform-dur) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Top Bar (Assembly B / Top Part / Tip Side) */
@@ -443,7 +461,7 @@ body {
        and positive Y moves Up globally.
        This lands it perfectly on the Diagonal's Tip. */
     transform: translate(-132px, 229px) rotateZ(-360deg);
-    transition: all 5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--transform-dur) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #scissors.transformed .hole {
@@ -598,15 +616,15 @@ body {
 #cut {
     position: absolute;
     width: 0;
-    height: 2px;
+    height: var(--cut-thick);
     background: var(--anim-bg);
     box-shadow: none;
-    top: calc(50% - 7px);
-    left: calc(50% - (var(--fab-w) / 2));
+    top: var(--cut-y);
+    left: var(--cut-x);
     transform: none;
     transform-origin: left center;
     z-index: 20;
-    animation: cut var(--anim-dur) ease forwards 2s;
+    animation: cut var(--anim-dur) ease forwards var(--start-delay);
 }
 
 @keyframes cut {

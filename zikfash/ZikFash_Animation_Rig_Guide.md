@@ -1,64 +1,72 @@
-# ZikFash "Master's Cut" Animation Rig Guide
+# ZikFash "Deterministic" Animation Rig Guide
 
-This document explains the mechanical rigging and CSS architecture behind the ZikFash landing page hero animation. It serves as a cheat sheet for refining the final "Z" logo lockup.
+This document defines the mathematical "Graph" used to control the ZikFash hero animation. Instead of manual coordinates, the rig is driven by a centralized Control Panel of CSS variables.
 
-## 1. The Mechanical Architecture (The Unified Hinge)
-The entire scissor animation is based on a **True Hinge Rig**. Instead of moving disconnected pieces around with arbitrary margins, both the Top Blade (`#top-part`) and Bottom Blade (`#bottom-part`) are anchored to the exact same rotational center—the physical screw.
+## 1. The Control Panel (style.css -> #logo-rig)
+The entire animation is governed by variables at the top of `#logo-rig`. Adjusting these values changes the behavior across both Desktop and Mobile viewports simultaneously.
 
-*   **Hinge Coordinate:** `transform-origin: 155px 44px;`
-*   **Why this matters:** When the scissors transition into the "Z" shape, they pivot mechanically around this exact point. All positioning math is relative to this screw.
+| Variable | Type | Default (Desktop) | Purpose |
+| :--- | :--- | :--- | :--- |
+| `--fab-w` | **Where** | `400px` | Total width of the fabric. Controls travel distance. |
+| `--tip-o` | **Where** | `310px` | Mechanical offset from scissor center to blade tip. |
+| `--assemble-x` | **Where** | `-150px` | Final "Z" logo horizontal resting position. |
+| `--start-delay`| **When** | `2s` | Settle time before any movement starts. |
+| `--anim-dur` | **When** | `10s` | Speed of the scissors gliding across the fabric. |
+| `--paper-delay`| **When** | `11s` | When the fabric halves begin their flight animation. |
+| `--text-delay` | **When** | `17s` | When the final typography fades in. |
+| `--rig-flatten-dur`| **How** | `2s` | Speed of the 3D-to-2D flattening transition. |
+| `--transform-dur` | **How** | `5s` | Speed of the mechanical Z-assembly. |
 
-## 2. Moving the Entire "Z" (Text Alignment)
-To move the assembled "Z" relative to the "ikFash" typography, you adjust the parent container coordinates.
+---
 
-*   **Target CSS:** `#scissors.transformed` AND `@keyframes move { 100% { ... } }`
-*   **Properties to change:**
-    *   `left: calc(50% - 210px);` -> Decrease `210px` (e.g., `190px`) to move the Z to the **RIGHT**.
-    *   `top: calc(50% - 80px);` -> Increase `80px` (e.g., `100px`) to move the Z **UP**.
-*   **Crucial Step:** You **must** update these values in *both* `#scissors.transformed` and the `100%` keyframe of the `move` animation, otherwise the scissors will glitch at the end of their flight.
+## 2. Spatial Logic: "WHERE" it happens
+The coordinate system is calculated using the center of the viewport (`50%`) as the origin. 
 
-## 3. Shaping the "Z"
-If you want to alter the actual shape of the "Z" logo itself, you will adjust the internal parts.
+*   **Fabric Start Point:** `calc(50% - (var(--fab-w) / 2))`
+*   **Scissor Origin at Start:** `calc(50% - (var(--fab-w) / 2) - var(--tip-o))`
+*   **Scissors Final Assembly:** `calc(50% + var(--assemble-x))`
 
-### A. The Diagonal Line (Assembly A)
-*   **Target CSS:** `#scissors.transformed #bottom-part`
-*   **Property:** `transform: rotateZ(-60deg);`
-*   **How to edit:** Change the degrees (e.g., `-50deg` for a flatter slant, `-70deg` for a steeper slant).
+### Example Modification:
+**Goal:** Make the scissors start further "off-screen" to the left.
+**Action:** Increase `--tip-o`. For example, setting it to `400px` will push the scissors' starting body further left while keeping the blade tip perfectly aligned with the fabric start.
 
-### B. The Bottom Bar
-*   **Target CSS:** `#scissors.transformed #top-part`
-*   **Property:** `transform: translate(-14px, 96px) rotateZ(540deg);`
-*   **How to edit:** 
-    *   **Change X (`-14px`):** Slide the bottom bar Left/Right.
-    *   **Change Y (`96px`):** Slide the bottom bar Up/Down.
-    *   *Note: The `540deg` creates the cinematic flip-and-roll. Do not remove it.*
+---
 
-### C. The Top Bar
-*   **Target CSS:** `#scissors.transformed #top-part .blade.segment-2`
-*   **Property:** `transform: translate(-132px, 229px) rotateZ(-360deg);`
-*   **How to edit:**
-    *   **Mindbender Warning:** Because the parent assembly flipped 180° upside down, the translation axes here are inverted globally!
-    *   **Change X (`-132px`):** Making it *closer to zero* (e.g. `-100px`) moves the bar **RIGHT**. Making it *more negative* (e.g. `-160px`) moves it **LEFT**.
-    *   **Change Y (`229px`):** Smaller numbers (e.g. `200px`) move the bar **DOWN**. Larger numbers move it **UP**.
+## 3. Timeline Logic: "WHEN" it happens
+The animation follows a strict sequence synchronized between CSS and JavaScript.
 
-## 4. Typographic "Pocket" (Fixing Text Overlaps)
-The mechanical scissors "Z" is wider (~140px) than a standard font "Z" (~80px). To prevent the wide scissors from crashing into the "ik", we created a physical "pocket" in the HTML.
+1.  **Settle Phase** (`--start-delay`): The initial wait for the user to focus on the fabric.
+2.  **Cutting Phase** (`--anim-dur`): The primary scissors glide and line growth.
+3.  **Transformation Trigger** (`script.js`): A JavaScript timeout triggers the `.transformed` class.
+    *   *Equation:* `transformationDelay = --anim-dur + --start-delay + 0.5s buffer`.
+4.  **Assembly Phase** (`--transform-dur`): Mechanical parts morph into the "Z" shape.
+5.  **Reveal Phase** (`--text-delay`): Final branding lockup fades in.
 
-*   **How it works:** The original "Z" in the HTML is wrapped in `<span id="z-placeholder">Z</span>`.
-*   **Target CSS:** `#z-placeholder`
-*   **Property:** `width: 140px;`
-*   **How to edit:** If you make the scissor Z even wider, it might hit the "ik". Simply increase `140px` to `160px` or more to push the "ik" further to the right.
+---
 
-## 6. The Slanted Rig Projection (New 3D Standard)
-As of the latest update, ZikFash uses a **Unified Slant Rig**. Instead of applying `rotateX` to every individual component, we project the entire `#logo-rig` container.
+## 4. Mechanical Logic: "HOW" it works
+The "Z" shape is formed by the mechanical rotation of two parent assemblies around a single hinge.
 
-*   **Projection Coordinates:** `transform: rotateX(55deg) rotateZ(-15deg);`
-*   **Why we did this:** This creates a consistent 3D perspective where the fabric, scissors, and text all lie on the same "cutting table."
-*   **How to calibrate the "Z" in this mode:**
-    1.  **Perspective Drift:** Because the plane is tilted at 55°, vertical distances (`top`, `translateY`) appear foreshortened. If the bars of the "Z" are detached, you must nudge their local translations to close the gap.
-    2.  **The Typography Pocket:** The text is now also projected. Ensure it remains aligned with the steel bars by adjusting the `#text` container's `top` and `left` relative to the `#scissors` center.
+*   **The Diagonal:** Controlled by `#bottom-part` rotation.
+*   **The Bars:** Controlled by `#top-part` translation and the split-blade segment.
+*   **Flattening:** Controlled by the transition on `#logo-rig` when the `.transformed` class is added.
 
-### Troubleshooting the Slanted View:
-If the "Z" parts are drifting apart:
-*   Check if any part has a `z-index` that is creating a hidden Z-offset.
-*   Nudge `#top-part .blade.segment-2` using the inverted translation logic (see Section 3.C) to re-attach the tip to the diagonal.
+---
+
+## 5. Examples of Behavior Modifications
+
+### Slow down the entire mobile experience:
+In the `@media (max-width: 480px)` block:
+1.  Increase `--anim-dur` to `12s`.
+2.  Update `--paper-delay` to `13s` (Duration + 1s).
+3.  Update `--text-delay` to `18s`.
+4.  **IMPORTANT:** Update `script.js` variable `transformationDelay` for mobile to `14500` (12s + 2s + 0.5s).
+
+### Change the final logo position:
+Adjust `--assemble-x`. 
+*   To move the logo **Right**: Change `-150px` to `-100px`.
+*   To move the logo **Left**: Change `-150px` to `-200px`.
+
+### Fix "Air Cutting" at the end:
+If the scissors keep snipping after the fabric ends, decrease `--snip-dur`. 
+*   *Perfect Sync Formula:* `--snip-dur = (--anim-dur * 0.9) / 5`.
