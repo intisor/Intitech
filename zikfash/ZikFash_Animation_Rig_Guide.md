@@ -49,9 +49,16 @@ The mechanical scissors "Z" is wider (~140px) than a standard font "Z" (~80px). 
 *   **Property:** `width: 140px;`
 *   **How to edit:** If you make the scissor Z even wider, it might hit the "ik". Simply increase `140px` to `160px` or more to push the "ik" further to the right.
 
-## 5. Pro Debugging Tips
+## 6. The Slanted Rig Projection (New 3D Standard)
+As of the latest update, ZikFash uses a **Unified Slant Rig**. Instead of applying `rotateX` to every individual component, we project the entire `#logo-rig` container.
 
-1.  **Flatten the 3D Perspective:** 
-    If the isometric 45° tilt makes it hard to see if the bars are aligning correctly, temporarily change `rotateX(45deg)` to `rotateX(0deg)` in `#scissors.transformed`. This flattens the view so you can perfect the 2D "Z" shape before tilting it back into 3D.
-2.  **Speed Up Testing:**
-    Waiting 15 seconds to see the final logo transformation can be tedious while testing coordinates. Temporarily change the CSS `transition` durations to `0.5s` and lower the Javascript `setTimeout` delay from `10500` to `500` to see near-instant results.
+*   **Projection Coordinates:** `transform: rotateX(55deg) rotateZ(-15deg);`
+*   **Why we did this:** This creates a consistent 3D perspective where the fabric, scissors, and text all lie on the same "cutting table."
+*   **How to calibrate the "Z" in this mode:**
+    1.  **Perspective Drift:** Because the plane is tilted at 55°, vertical distances (`top`, `translateY`) appear foreshortened. If the bars of the "Z" are detached, you must nudge their local translations to close the gap.
+    2.  **The Typography Pocket:** The text is now also projected. Ensure it remains aligned with the steel bars by adjusting the `#text` container's `top` and `left` relative to the `#scissors` center.
+
+### Troubleshooting the Slanted View:
+If the "Z" parts are drifting apart:
+*   Check if any part has a `z-index` that is creating a hidden Z-offset.
+*   Nudge `#top-part .blade.segment-2` using the inverted translation logic (see Section 3.C) to re-attach the tip to the diagonal.

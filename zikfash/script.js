@@ -63,11 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Trigger the Z-logo transformation after the glide to top-left is done (10.5s)
+    // Trigger the Z-logo transformation after the glide to top-left is done
+    // Mobile: 8s animation + 2s delay + 0.5s buffer = 10.5s
+    // Desktop: 10s animation + 2s delay + 0.5s buffer = 12.5s
+    const isSmallMobile = window.matchMedia('(max-width: 480px)').matches;
+    const transformationDelay = isSmallMobile ? 10500 : 12500;
+
     setTimeout(() => {
         const scissors = document.getElementById('scissors');
-        if (scissors) {
-            scissors.classList.add('transformed');
-        }
-    }, 10500);
+        const rig = document.getElementById('logo-rig');
+        if (scissors) scissors.classList.add('transformed');
+        if (rig) rig.classList.add('transformed');
+    }, transformationDelay);
 });
