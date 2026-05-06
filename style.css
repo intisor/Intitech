@@ -54,10 +54,17 @@ body {
     background-color: var(--void);
     color: var(--parchment);
     font-family: 'IM Fell English', serif;
-    font-size: 18px;
-    line-height: 1.95;
+    font-size: 16px; /* Base font size slightly smaller for mobile */
+    line-height: 1.8;
     overflow-x: hidden;
     position: relative;
+}
+
+@media (min-width: 768px) {
+    body {
+        font-size: 18px;
+        line-height: 1.95;
+    }
 }
 
 /* Texture Overlay */
@@ -90,14 +97,29 @@ h1, h2, h3, .cinzel {
 
 /* Layout Utilities */
 .container {
+    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-md);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem 1.25rem; /* Default mobile padding */
+    box-sizing: border-box;
 }
 
+@media (max-width: 340px) { .container { padding-left: 1rem; padding-right: 1rem; } }
+@media (min-width: 640px) { .container { padding: 3rem 2.5rem; } }
+@media (min-width: 768px) { .container { padding: 4rem 5rem; } }
+@media (min-width: 1024px) { .container { padding: 4rem 6rem; } }
+@media (min-width: 1280px) { .container { padding: 4rem 8rem; } }
+
 section {
-    padding: var(--section-gap) 0;
+    padding: var(--space-xl) 0; /* Smaller mobile padding */
     position: relative;
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: var(--section-gap) 0;
+    }
 }
 
 /* Header */
@@ -557,12 +579,13 @@ section {
 
 .ornament-branch {
     width: 120px;
-    height: auto;
+    height: 120px;
     stroke: var(--sediment);
     stroke-width: 1px;
     fill: none;
     opacity: 0.6;
     transition: all 0.5s ease;
+    color: var(--sediment);
 }
 
 .ornament-branch .tip {
@@ -701,7 +724,8 @@ footer {
 @media (max-width: 768px) {
     .main-header {
         padding: var(--space-sm) 0;
-        background: rgba(8, 7, 5, 0.9);
+        background: rgba(8, 7, 5, 0.95);
+        backdrop-filter: blur(12px);
     }
 
     .nav-wrap {
@@ -710,10 +734,9 @@ footer {
     }
 
     .nav-links {
-        display: none; /* Hide standard links on mobile, or implement a drawer */
+        display: none; 
     }
 
-    /* Add a simple mobile menu indicator or just keep it minimal */
     .nav-logo span {
         font-size: 0.9rem;
     }
@@ -728,13 +751,14 @@ footer {
     }
 
     .hero-name { 
-        font-size: clamp(3rem, 18vw, 5rem);
+        font-size: clamp(3rem, 18vw, 5.5rem);
         margin-top: var(--space-md);
     }
 
     .hero-tagline {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         padding: 0 var(--space-xs);
+        line-height: 1.4;
     }
 
     .hero-ctas {
@@ -752,28 +776,50 @@ footer {
 
     .hero-pulse {
         flex-direction: column;
-        gap: 12px;
+        gap: 10px;
         align-items: center;
         margin-top: var(--space-md);
     }
 
     .pulse-item {
-        background: rgba(28, 26, 19, 0.5);
-        padding: 8px 16px;
+        background: var(--topsoil);
+        padding: 10px 16px;
         border-radius: 4px;
         border: 1px solid var(--sediment);
-        width: 200px;
+        width: 100%;
+        max-width: 280px;
         display: flex;
         justify-content: space-between;
+        font-size: 0.7rem;
     }
 
     .section-divider {
-        gap: var(--space-md);
-        padding: var(--space-xl) 0;
+        gap: var(--space-sm);
+        padding: var(--space-lg) 0;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+    }
+
+    .ornament-branch {
+        width: 60px;
     }
 
     .pgrid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pcard {
+        padding: var(--space-md);
+    }
+
+    .pname {
+        font-size: 1.3rem;
+    }
+
+    .pdesc {
+        font-size: 0.9rem;
+        line-height: 1.6;
     }
 
     .about-wrap { 
@@ -788,6 +834,7 @@ footer {
 
     .system-panel {
         padding: var(--space-md);
+        margin-top: var(--space-lg);
     }
 
     .metric-cell {
@@ -798,6 +845,28 @@ footer {
 
     .metric-cell:last-child {
         border-bottom: none;
+    }
+
+    .m-value {
+        font-size: 1.1rem;
+    }
+
+    .ecosystem-grid {
+        gap: 12px;
+    }
+
+    .endpoint-link {
+        width: 100%;
+        min-width: unset;
+        padding: 10px 16px;
+    }
+
+    .e-url {
+        font-size: 0.8rem;
+    }
+
+    .flogo {
+        font-size: 1.5rem;
     }
 }
 
@@ -829,8 +898,4 @@ footer {
     fill: var(--ember);
 }
 
-.ornament-branch {
-    width: 60px;
-    height: 60px;
-    color: var(--sediment);
-}
+
