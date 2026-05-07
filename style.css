@@ -128,10 +128,15 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    padding: var(--space-md) 0;
+    padding: var(--space-sm) 0;
     z-index: 1000;
     background: linear-gradient(to bottom, var(--void) 60%, transparent);
     backdrop-filter: blur(8px);
+}
+
+.main-header .container {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .nav-wrap {
