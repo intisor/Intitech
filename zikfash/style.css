@@ -103,7 +103,7 @@ body {
 
 /* ─── Hero ─────────────────────────────────────────── */
 .hero {
-    padding: 180px 0 100px;
+    padding: 160px 40px 100px 60px;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -168,7 +168,7 @@ body {
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(26, 18, 8, 0.08);
     border: 1px solid rgba(184, 149, 90, 0.15);
-    max-width: 500px;
+    max-width: 540px;
     margin-bottom: 24px;
 }
 
@@ -225,7 +225,7 @@ body {
     background: rgba(184, 149, 90, 0.03);
     border-radius: 12px;
     padding: 0 12px;
-    height: 50px;
+    height: 45px;
     border: 1px solid transparent;
 }
 
@@ -235,13 +235,14 @@ body {
 }
 
 .secondary-row .select-wrap {
-    flex: 0.8;
+    flex: 1;
     background: rgba(184, 149, 90, 0.03);
     border-radius: 12px;
-    height: 50px;
+    height: 45px;
     display: flex;
     align-items: center;
-    padding: 0 8px;
+    padding: 0 12px;
+    min-width: 90px;
 }
 
 .onboard-form select {
@@ -256,11 +257,11 @@ body {
 }
 
 .onboard-form .btn-gold {
-    flex: 1;
-    height: 50px;
-    padding: 0 20px;
+    flex: 1.5;
+    height: 45px;
+    padding: 0 16px;
     border-radius: 12px;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     white-space: nowrap;
 }
 
