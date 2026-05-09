@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         onboardForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const shopName = document.getElementById('shopNameInput').value;
+            const phone = document.getElementById('phoneInput').value;
             const currency = document.getElementById('currencySelect').value;
             
             if (shopName) {
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const params = new URLSearchParams();
                 params.set('ref', 'tailor');
                 params.set('shop', shopName);
+                params.set('phone', phone);
                 params.set('currency', currency);
                 window.location.href = `${baseUrl}?${params.toString()}`;
             }

@@ -112,15 +112,15 @@ body {
 
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 80px;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
     align-items: center;
 }
 
 .hero-text h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    line-height: 1.1;
+    font-size: 3.5rem;
+    line-height: 1.2;
     color: var(--espresso);
     margin-bottom: 24px;
 }
@@ -161,45 +161,125 @@ body {
 
 .onboard-form {
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    margin-bottom: 16px;
     background: #fff;
-    padding: 8px;
+    padding: 12px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(26, 18, 8, 0.08);
+    border: 1px solid rgba(184, 149, 90, 0.15);
+    max-width: 500px;
+    margin-bottom: 24px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    background: rgba(184, 149, 90, 0.03);
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(184, 149, 90, 0.1);
+    padding: 0 16px;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.form-row:focus-within {
+    background: #fff;
+    border-color: var(--gold);
+    box-shadow: 0 8px 20px rgba(184, 149, 90, 0.1);
+}
+
+.icon-faint {
+    font-size: 1.2rem;
+    color: var(--text-mid);
+    opacity: 0.5;
+    margin-right: 8px;
+}
+
+.main-row {
+    height: 56px;
 }
 
 .onboard-form input {
     flex: 1;
-    border: none;
+    border: none !important;
     background: transparent;
-    padding: 10px 16px;
+    padding: 12px 0;
     font-size: 1.05rem;
     font-family: 'Lato', sans-serif;
     outline: none;
-    min-width: 0;
+    color: var(--espresso);
+}
+
+.secondary-row {
+    display: flex;
+    gap: 8px;
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.secondary-row .input-wrap {
+    flex: 1.5;
+    display: flex;
+    align-items: center;
+    background: rgba(184, 149, 90, 0.03);
+    border-radius: 12px;
+    padding: 0 12px;
+    height: 50px;
+    border: 1px solid transparent;
+}
+
+.secondary-row .input-wrap:focus-within {
+    background: #fff;
+    border-color: var(--gold);
+}
+
+.secondary-row .select-wrap {
+    flex: 0.8;
+    background: rgba(184, 149, 90, 0.03);
+    border-radius: 12px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
 }
 
 .onboard-form select {
-    border: none;
+    border: none !important;
     background: transparent;
-    padding: 10px 12px;
+    width: 100%;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--text-mid);
     outline: none;
     cursor: pointer;
-    border-left: 1px solid #eee;
-    font-family: 'Lato', sans-serif;
 }
 
 .onboard-form .btn-gold {
-    padding: 14px 28px;
-    border: none;
-    cursor: pointer;
-    font-family: 'Lato', sans-serif;
+    flex: 1;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 12px;
+    font-size: 0.95rem;
     white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .onboard-form {
+        max-width: 100%;
+    }
+    
+    .secondary-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .secondary-row .input-wrap,
+    .secondary-row .select-wrap,
+    .secondary-row .btn-gold {
+        width: 100%;
+        flex: none;
+    }
 }
 
 .onboard-alt {
