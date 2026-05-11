@@ -268,18 +268,20 @@ body {
 @media (max-width: 768px) {
     .onboard-form {
         max-width: 100%;
+        padding: 8px;
     }
     
     .secondary-row {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 65px;
         gap: 12px;
+        margin-top: 10px;
     }
-    
-    .secondary-row .input-wrap,
-    .secondary-row .select-wrap,
+
     .secondary-row .btn-gold {
+        grid-column: span 2;
         width: 100%;
-        flex: none;
+        margin-top: 4px;
     }
 }
 
@@ -789,7 +791,7 @@ body {
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     align-items: stretch;
 }
@@ -821,8 +823,8 @@ body {
 .feature-card.feature-card-visual {
     background: none;
     padding: 0;
-    width: 342px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
     height: auto;
     overflow: hidden;
     position: relative;
@@ -830,7 +832,7 @@ body {
     display: flex;
     flex-direction: column;
     grid-column: span 1;
-    margin: 0 auto 40px;
+    margin: 0 auto;
 }
 
 .feature-visual-img {
@@ -974,7 +976,8 @@ body {
     }
 
     .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
     .hero-text h1 {
@@ -1037,36 +1040,50 @@ body {
 
     .onboard-form {
         flex-direction: column !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        border: none !important;
+        background: #fff !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+        padding: 8px !important; /* Math: 20px outer - 8px padding = 12px inner */
+        border: 1px solid rgba(184, 149, 90, 0.2) !important;
         display: flex !important;
     }
 
-    .onboard-form input,
-    .onboard-form select {
-        background: #fff !important;
-        border-radius: 12px !important;
-        border: 1px solid #eee !important;
-        margin-bottom: 10px !important;
-        width: 100% !important;
-        flex: none !important;
-        display: block !important;
-        padding: 16px !important;
+    .form-row, .secondary-row .input-wrap, .secondary-row .select-wrap {
+        background: rgba(184, 149, 90, 0.05) !important;
+        border: 1px solid rgba(184, 149, 90, 0.1) !important;
+        margin-bottom: 0;
+        margin-top: 0;
     }
 
-    .onboard-form select {
-        border-left: 1px solid #eee;
+    .form-row.main-row {
+        margin-bottom: 8px;
+    }
+
+    .secondary-row {
+        grid-template-columns: 1fr 65px !important;
+        gap: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    .secondary-row .input-wrap {
+        border-radius: 12px 0 0 12px !important;
+        border-right: none !important;
+    }
+
+    .secondary-row .select-wrap {
+        border-radius: 0 12px 12px 0 !important;
+        min-width: 0 !important; /* Fix grid blowout */
+        padding: 0 8px !important;
     }
 
     .onboard-form .btn-gold {
+        margin-top: 8px;
         width: 100%;
         padding: 18px;
+        height: 56px;
     }
 
     .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 
     .hero-text h1 {
@@ -1099,8 +1116,8 @@ body {
 
 @media (max-width: 480px) {
     .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 
     .hero {
