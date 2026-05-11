@@ -1045,7 +1045,7 @@ body {
     }
 
     .form-row.main-row {
-        margin-bottom: 8px;
+        margin-bottom: 0;
     }
 
     .secondary-row {
