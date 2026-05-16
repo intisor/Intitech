@@ -1,30 +1,27 @@
 function initPortfolio() {
-    // ── Alphabet Shuffle Logic for Hero Title ────────────────────────────────────
     const shuffleLetters = document.querySelectorAll('.shuffle-letter');
     console.log(`[INIT] Found ${shuffleLetters.length} shuffle letters.`);
-    
+
     shuffleLetters.forEach((el, index) => {
         const target = el.getAttribute('data-target');
-        let currentCode = 65; // 'A'
-        
-        // Staggered start for each letter
+        let currentCode = 65;
+
         setTimeout(() => {
             const interval = setInterval(() => {
                 const currentLetter = String.fromCharCode(currentCode);
                 el.innerText = currentLetter;
-                
+
                 if (currentLetter === target) {
                     clearInterval(interval);
                     el.style.color = 'inherit';
                 } else {
                     currentCode++;
-                    if (currentCode > 90) currentCode = 65; // Cycle A-Z
+                    if (currentCode > 90) currentCode = 65;
                 }
-            }, 50 + (index * 15)); // Slightly slower, more rhythmic shuffle
+            }, 50 + (index * 15));
         }, index * 120);
     });
 
-    // ── Phyllotaxis (Fibonacci Spiral) Background ───────────────────────────────
     const phyllotaxis = document.getElementById('phyllotaxis');
     if (phyllotaxis) {
         const dotCount = 200;
@@ -49,185 +46,228 @@ function initPortfolio() {
         }
     }
 
-    // ── Scroll Reveal Effect ───────────────────────────────────────────────────
-    const setupReveal = () => {
-        const reveals = document.querySelectorAll('.pcard, .about-text, .about-meta, .sinscription');
-        reveals.forEach(el => {
-            if (!el.dataset.revealSet) {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'all 0.6s ease-out';
-                el.dataset.revealSet = "true";
-            }
-        });
-
-        const revealOnScroll = () => {
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].style.opacity = '1';
-                    reveals[i].style.transform = 'translateY(0)';
-                }
-            }
-        };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
-    };
-
-    // ── Portfolio Hydration Engine ─────────────────────────────────────────────
     const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:5122' // Standard ASP.NET local port
+        ? 'http://localhost:5122'
         : 'https://api.intitech.dev';
 
-    async function hydratePortfolio() {
-        try {
-            const start = performance.now();
-            const response = await fetch(`${API_BASE}/portfolio/summary`);
-            const end = performance.now();
-            const latency = Math.round(end - start);
+    const escapeHtml = (value) => String(value ?? '').replace(/[&<>"]|'/g, (character) => {
+        const replacements = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        };
 
-            if (!response.ok) throw new Error('API Sync Failed');
-            
-            const data = await response.json();
-            
-            // ── INSTANT METRIC UPDATES ──────────────────────────────────────────
-            document.getElementById('repo-count').innerText = data.gitHub.profile.publicRepos;
-            document.getElementById('active-projects-count-hero').innerText = data.projects.length.toString().padStart(2, '0');
-            document.getElementById('active-projects-count').innerText = data.projects.length;
-            
-            // Real Response Time Update
-            const latencyEl = document.getElementById('latency');
-            if (latencyEl) latencyEl.innerText = `${latency}ms`;
-            const tickerLatEl = document.getElementById('ticker-lat');
-            if (tickerLatEl) tickerLatEl.innerText = latency;
+        return replacements[character] || character;
+    });
 
-            // Requests Today Update
-            const requestsEl = document.getElementById('sys-requests');
-            if (requestsEl) requestsEl.innerText = data.system.requestsToday.toLocaleString();
-            
-            const subtagEl = document.querySelector('.hero-subtag');
-            if (subtagEl && data.about.subtag) subtagEl.innerText = data.about.subtag;
+    const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = value;
+        }
+    };
 
-            // ── INSTANT PROJECT GRID SWAP ───────────────────────────────────────
-            const projectGrid = document.getElementById('project-grid');
-            
-            // Create the new fragment for faster rendering
-            const fragment = document.createDocumentFragment();
-            
-            data.projects.forEach((proj, idx) => {
-                const card = document.createElement('div');
+    const animateNodes = (nodes, delayStep = 45) => {
+        nodes.forEach((node, index) => {
+            node.style.opacity = '0';
+            node.style.transform = 'translateY(12px)';
+            node.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    node.style.opacity = '1';
+                    node.style.transform = 'translateY(0)';
+                }, index * delayStep);
+            });
+        });
+    };
+
+    const markSectionReady = (element) => {
+        if (element) {
+            element.dataset.state = 'ready';
+        }
+    };
+
+    const renderMetrics = (data, latency) => {
+        const projectCount = Array.isArray(data.projects) ? data.projects.length : 0;
+        const repoCount = data.gitHub?.profile?.publicRepos;
+        const requestsToday = data.system?.requestsToday;
+
+        setText('repo-count', Number.isFinite(repoCount) ? String(repoCount) : '--');
+        setText('active-projects-count-hero', Number.isFinite(projectCount) ? String(projectCount).padStart(2, '0') : '--');
+        setText('active-projects-count', Number.isFinite(projectCount) ? String(projectCount) : '--');
+        setText('latency', Number.isFinite(latency) ? `${latency}ms` : '--');
+        setText('ticker-lat', Number.isFinite(latency) ? String(latency) : '--');
+        setText('sys-requests', Number.isFinite(requestsToday) ? requestsToday.toLocaleString() : '--');
+
+        const subtagEl = document.querySelector('.hero-subtag');
+        if (subtagEl && data.about?.subtag) {
+            subtagEl.textContent = data.about.subtag;
+        }
+    };
+
+    const renderProjects = (projects) => {
+        const projectGrid = document.getElementById('project-grid');
+        if (!projectGrid) {
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        const projectList = Array.isArray(projects) ? projects : [];
+
+        if (projectList.length === 0) {
+            const emptyCard = document.createElement('div');
+            emptyCard.className = 'pcard';
+            emptyCard.innerHTML = `
+                <div class="ptag">LIVE DATA PENDING</div>
+                <h3 class="pname">Static shell active</h3>
+                <p class="pdesc">The project rail is waiting for the next API snapshot. Placeholder content remains visible so the page never lands empty.</p>
+                <div class="pstack">
+                    <span class="spill">READY</span>
+                    <span class="spill">HYDRATION</span>
+                    <span class="spill">LIVE JSON</span>
+                </div>
+                <div class="pfooter">
+                    <div class="pmet">↗ Awaiting data</div>
+                    <div class="pwork mono">Refreshing...</div>
+                </div>
+            `;
+            fragment.appendChild(emptyCard);
+        } else {
+            projectList.forEach((project, index) => {
+                const card = document.createElement('article');
                 card.className = 'pcard';
-                card.style.opacity = '0'; // Prepare for fade-in
-                card.style.transform = 'translateY(10px)';
-                
                 card.innerHTML = `
-                    <div class="ptag">${(idx + 1).toString().padStart(2, '0')} · ${proj.tagline}</div>
-                    <h3 class="pname">${proj.name}</h3>
-                    <p class="pdesc">${proj.description}</p>
+                    <div class="ptag">${String(index + 1).padStart(2, '0')} · ${escapeHtml(project.tagline || 'PROJECT')}</div>
+                    <h3 class="pname">${escapeHtml(project.name || 'Untitled Project')}</h3>
+                    <p class="pdesc">${escapeHtml(project.description || 'No description provided.')}</p>
                     <div class="pstack">
-                        ${proj.stack.map(s => `<span class="spill">${s}</span>`).join('')}
+                        ${(Array.isArray(project.stack) ? project.stack : []).map((stackItem) => `<span class="spill">${escapeHtml(stackItem)}</span>`).join('')}
                     </div>
                     <div class="pfooter">
-                        <div class="pmet">${proj.metrics}</div>
-                        ${proj.codingTime ? `<div class="pwork mono">Logged: ${proj.codingTime}</div>` : ''}
+                        <div class="pmet">${escapeHtml(project.metrics || '')}</div>
+                        ${project.codingTime ? `<div class="pwork mono">Logged: ${escapeHtml(project.codingTime)}</div>` : '<div class="pwork mono">Live sync</div>'}
                     </div>
                 `;
 
-                if (proj.link) {
+                if (project.link) {
                     card.style.cursor = 'pointer';
-                    card.onclick = () => window.open(proj.link, '_blank');
+                    card.addEventListener('click', () => window.open(project.link, '_blank', 'noopener,noreferrer'));
+                    card.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            window.open(project.link, '_blank', 'noopener,noreferrer');
+                        }
+                    });
+                    card.tabIndex = 0;
+                    card.setAttribute('role', 'link');
                 }
+
                 fragment.appendChild(card);
             });
+        }
 
-            // Swap out the entire grid content at once for zero flicker
-            projectGrid.style.opacity = '0.5';
-            setTimeout(() => {
-                projectGrid.innerHTML = '';
-                projectGrid.appendChild(fragment);
-                projectGrid.style.opacity = '1';
-                
-                // Trigger the reveal for new cards
-                const newCards = projectGrid.querySelectorAll('.pcard');
-                newCards.forEach((card, i) => {
-                    setTimeout(() => {
-                        card.style.transition = 'all 0.4s ease-out';
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, i * 50);
-                });
-            }, 50);
+        projectGrid.replaceChildren(fragment);
+        markSectionReady(projectGrid);
+        animateNodes(Array.from(projectGrid.querySelectorAll('.pcard')));
+    };
 
-            // 3. System Panel
-            document.getElementById('active-projects-count').innerText = data.projects.length;
+    const renderSkills = (skills) => {
+        const skillsWall = document.getElementById('skills-wall');
+        if (!skillsWall) {
+            return;
+        }
 
-            // 4. Skills Wall
-            const skillsWall = document.getElementById('skills-wall');
-            skillsWall.innerHTML = data.skills.map(skill => `
-                <span class="sglyph tier-${skill.tier}">${skill.name}</span>
-            `).join('');
+        const skillList = Array.isArray(skills) ? skills : [];
+        if (skillList.length === 0) {
+            skillsWall.innerHTML = '<span class="sglyph">SYNCING</span><span class="sglyph">SKILLS</span><span class="sglyph">WALL</span>';
+        } else {
+            skillsWall.innerHTML = skillList.map((skill) => `<span class="sglyph tier-${escapeHtml(skill.tier ?? 2)}">${escapeHtml(skill.name || 'SKILL')}</span>`).join('');
+        }
 
-            // 5. About Section
-            const aboutBio = document.getElementById('about-bio');
-            if (aboutBio && data.about) {
-                const opening = data.about.opening ? data.about.opening.replace(/\n/g, '<br>') : '';
-                aboutBio.innerHTML = `
-                    <p class="about-opening">"${opening}"</p>
-                    <p>${data.about.bio || ''}</p>
-                    <p>${data.about.careerGoal || ''}</p>
-                    <p>${data.about.affiliations || ''}</p>
-                `;
-            }
+        markSectionReady(skillsWall);
+        animateNodes(Array.from(skillsWall.querySelectorAll('.sglyph')));
+    };
 
-            const aboutMeta = document.getElementById('about-meta-list');
-            if (aboutMeta && data.about) {
-            
-            // Reverting to the exact JSON structure provided: gitHub.languages.percentages
-            const languages = data.gitHub.languages?.percentages || {};
+    const renderAbout = (about, gitHub) => {
+        const aboutBio = document.getElementById('about-bio');
+        const aboutMeta = document.getElementById('about-meta-list');
+
+        if (aboutBio && about) {
+            const opening = about.opening ? escapeHtml(about.opening).replace(/\n/g, '<br>') : '';
+            aboutBio.innerHTML = `
+                <p class="about-opening">"${opening || 'Builder mode active.'}"</p>
+                <p>${escapeHtml(about.bio || 'Waiting on the latest biography snapshot.')}</p>
+                <p>${escapeHtml(about.careerGoal || 'Shipping practical systems that solve real problems.')}</p>
+                <p>${escapeHtml(about.affiliations || 'No affiliations loaded yet.')}</p>
+            `;
+            markSectionReady(aboutBio);
+        }
+
+        if (aboutMeta && about) {
+            const languages = gitHub?.languages?.percentages || {};
             const langKeys = Object.keys(languages);
-            const primaryStack = langKeys.length >= 2 
-                ? `${langKeys[0]} · ${langKeys[1]}` 
+            const primaryStack = langKeys.length >= 2
+                ? `${langKeys[0]} · ${langKeys[1]}`
                 : (langKeys[0] || 'C# · ASP.NET');
 
             const metaRows = [
-                ['Location', data.about.location],
+                ['Location', about.location || 'Akure, Nigeria'],
                 ['Primary Stack', primaryStack],
-                ['Status', data.about.status],
+                ['Status', about.status || 'Building'],
                 ['Education', 'FUTA — Software Engineering'],
                 ['Programme', 'MLSA Alpha'],
                 ['Domain', 'intitech.dev']
             ];
 
-                aboutMeta.innerHTML = metaRows.map(([label, val], idx) => `
-                    <div class="ameta-row" ${idx === metaRows.length - 1 ? 'style="border-bottom: none"' : ''}>
-                        <span class="ameta-label">${label}</span>
-                        <span class="ameta-val">${val}</span>
-                    </div>
-                `).join('');
+            aboutMeta.innerHTML = metaRows.map(([label, value], index) => `
+                <div class="ameta-row" ${index === metaRows.length - 1 ? 'style="border-bottom: none"' : ''}>
+                    <span class="ameta-label">${escapeHtml(label)}</span>
+                    <span class="ameta-val">${escapeHtml(value)}</span>
+                </div>
+            `).join('');
+
+            markSectionReady(aboutMeta);
+            animateNodes([aboutBio, aboutMeta].filter(Boolean));
+        }
+    };
+
+    async function hydratePortfolio() {
+        try {
+            const start = performance.now();
+            const response = await fetch(`${API_BASE}/portfolio/summary`, { cache: 'no-store' });
+            const latency = Math.round(performance.now() - start);
+
+            if (!response.ok) {
+                throw new Error('API Sync Failed');
             }
 
-            // 6. Update Ticker (Static real latency)
-            // No jitter — just using the real value measured at start
+            const data = await response.json();
 
-            // Setup reveals for newly injected elements
-            setupReveal();
+            renderMetrics(data, latency);
 
+            requestAnimationFrame(() => {
+                renderProjects(data.projects);
+                renderSkills(data.skills);
+                renderAbout(data.about, data.gitHub);
+            });
+
+            document.documentElement.dataset.portfolioState = 'ready';
         } catch (error) {
             console.warn('Hydration Offline:', error.message);
-            // We keep the static backup projects visible in the DOM
+            document.documentElement.dataset.portfolioState = 'offline';
+            setText('latency', '--');
+            setText('ticker-lat', '--');
         }
     }
 
     hydratePortfolio();
 
-    // Console Signature
     console.log("%cINTITECH %c// I build what's needed.", "color: #c8612a; font-weight: bold; font-size: 20px;", "color: #6b6355; font-style: italic;");
 }
 
-// Ensure initialization happens even if script is loaded after DOMContentLoaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPortfolio);
 } else {
