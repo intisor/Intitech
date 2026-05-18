@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const phone = document.getElementById('phoneInput').value;
             const currency = document.getElementById('currencySelect').value;
             
-            if (shopName) {
+            if (shopName && phone && currency) {
                 const baseUrl = 'https://zikfash.intitech.dev';
                 const params = new URLSearchParams();
                 params.set('ref', 'tailor');
@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 params.set('phone', phone);
                 params.set('currency', currency);
                 window.location.href = `${baseUrl}?${params.toString()}`;
+            } else {
+                alert("Please provide Shop Name, Phone Number, and Currency.");
             }
         });
     }
