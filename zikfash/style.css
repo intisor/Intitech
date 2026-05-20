@@ -68,6 +68,12 @@ body {
     color: var(--gold);
 }
 
+.logo-img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+}
+
 .nav {
     display: flex;
     gap: 30px;
