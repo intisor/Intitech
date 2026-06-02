@@ -67,6 +67,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ── Features Carousel for Mobile (max-width: 768px) ───────────────
+    const anchors = document.querySelectorAll('.carousel-anchor');
+    const track = document.querySelector('.feature-grid');
+    
+    if (anchors.length > 0 && track) {
+        anchors.forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                const index = parseInt(anchor.getAttribute('data-index'));
+                
+                // Update active class on anchors
+                anchors.forEach(a => a.classList.remove('active'));
+                anchor.classList.add('active');
+                
+                // Slide track
+                const offset = -index * 100;
+                track.style.transform = `translateX(${offset}%)`;
+            });
+        });
+
+        // Touch support for swiping
+        let startX = 0;
+        let currentX = 0;
+        let isSwiping = false;
+        const container = document.querySelector('.carousel-track-container');
+
+        if (container) {
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isSwiping = true;
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                currentX = e.touches[0].clientX;
+            }, { passive: true });
+
+            container.addEventListener('touchend', () => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                const diffX = startX - currentX;
+                const activeAnchor = document.querySelector('.carousel-anchor.active');
+                if (!activeAnchor) return;
+                let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
+
+                if (Math.abs(diffX) > 50) { // Swipe threshold
+                    if (diffX > 0 && currentIndex < anchors.length - 1) {
+                        // Swipe left -> next slide
+                        anchors[currentIndex + 1].click();
+                    } else if (diffX < 0 && currentIndex > 0) {
+                        // Swipe right -> prev slide
+                        anchors[currentIndex - 1].click();
+                    }
+                }
+            });
+        }
+    }
+
     // Trigger the Z-logo transformation after the glide to top-left is done
     // Mobile: 8s animation + 2s delay + 0.5s buffer = 10.5s
     // Desktop: 10s animation + 2s delay + 0.5s buffer = 12.5s
