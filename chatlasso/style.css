@@ -556,6 +556,18 @@ h1 {
     #nav { padding: 16px 24px; }
 }
 
+/* ====== PRINT ====== */
+@media print {
+    .grain, .hero-demo, .ticker-wrapper, .cta-rope, #nav { display: none !important; }
+    body { background: #fff; color: #000; }
+    .hero { min-height: auto; grid-template-columns: 1fr; padding-top: 0; }
+    .hero-text { border-right: none; padding: 20px; }
+    .btn-solid, .btn-ghost { display: none !important; }
+    .footer { border-top: 1px solid #ccc; }
+    .wordmark span { color: #d4541a; }
+    a, a:link { color: #000; text-decoration: underline; }
+}
+
 @media (max-width: 768px) {
     .nav-right {
         gap: 12px;
