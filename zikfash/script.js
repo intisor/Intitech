@@ -200,10 +200,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Trigger the Z-logo transformation after the glide to top-left is done
-    // Mobile: 8s animation + 2s delay + 0.5s buffer = 10.5s
-    // Desktop: 10s animation + 2s delay + 0.5s buffer = 12.5s
+    // Mobile: 5.5s animation + 2s delay + 0.5s buffer = 8s
+    // Desktop: 7s animation + 2s delay + 0.5s buffer = 9.5s
     const isSmallMobile = window.matchMedia('(max-width: 480px)').matches;
-    const transformationDelay = isSmallMobile ? 10500 : 12500;
+    const transformationDelay = isSmallMobile ? 8000 : 9500;
 
     setTimeout(() => {
         const scissors = document.getElementById('scissors');
