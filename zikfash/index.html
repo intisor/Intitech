@@ -123,15 +123,15 @@
                     <form id="onboardForm" class="onboard-form">
                         <div class="form-row main-row">
                             <span class="material-symbols-outlined icon-faint">store</span>
-                            <input type="text" id="shopNameInput" placeholder="Your Shop Name" required autocomplete="on" />
+                            <input type="text" id="shopNameInput" placeholder="Your Shop Name" aria-label="Shop Name" required autocomplete="on" />
                         </div>
                         <div class="form-row secondary-row">
                             <div class="input-wrap" id="phoneInputWrap">
                                 <span class="material-symbols-outlined icon-faint">call</span>
-                                <input type="tel" id="phoneInput" placeholder="Phone Number" required autocomplete="tel" maxlength="20" />
+                                <input type="tel" id="phoneInput" placeholder="Phone Number" aria-label="Phone Number" required autocomplete="tel" maxlength="20" />
                             </div>
                             <div class="select-wrap">
-                                <select id="currencySelect" required title="Currency">
+                                <select id="currencySelect" required title="Currency" aria-label="Select Currency">
                                     <option value="₦">₦</option>
                                     <option value="$">$</option>
                                     <option value="£">£</option>
@@ -260,7 +260,7 @@
                     <div class="logo">
                         <img src="zeelogo.webp" alt="ZikFash Logo" class="logo-img"> ZikFash
                     </div>
-                    <p>Powered by <strong>IntiTech</strong></p>
+                    <p>Powered by <a href="https://intitech.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;"><strong>IntiTech</strong></a></p>
                 </div>
                 <p class="copyright">&copy; 2026 ZikFash. All rights reserved.</p>
             </div>
