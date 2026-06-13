@@ -1260,3 +1260,31 @@ body {
         top: calc(50% + 115px);
     }
 }
+
+/* ─── Phone Input Validation ────────────────────────── */
+.phone-error-message {
+    color: #e53935;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-top: 4px;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.secondary-row .input-wrap.invalid-input {
+    border-color: #e53935 !important;
+    background: rgba(229, 57, 53, 0.03) !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+}
+
+.shake-input {
+    animation: shake 0.4s ease-in-out;
+}

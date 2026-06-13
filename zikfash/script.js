@@ -46,13 +46,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Onboarding Form Logic ──────────────────────────────────────────
     const onboardForm = document.getElementById('onboardForm');
+    const phoneInput = document.getElementById('phoneInput');
+    const phoneInputWrap = document.getElementById('phoneInputWrap');
+    const phoneError = document.getElementById('phoneError');
+
+    function cleanPhoneInput(val) {
+        let cleaned = '';
+        for (let i = 0; i < val.length; i++) {
+            let char = val[i];
+            if (i === 0 && char === '+') {
+                cleaned += char;
+            } else if (/[\d\s\-()]/.test(char)) {
+                cleaned += char;
+            }
+        }
+        return cleaned;
+    }
+
+    function validatePhone() {
+        if (!phoneInput) return false;
+        const val = phoneInput.value.trim();
+        if (!val) {
+            phoneInputWrap.classList.remove('invalid-input');
+            phoneError.style.display = 'none';
+            phoneError.textContent = '';
+            return false;
+        }
+
+        const phoneRegex = /^\+?[0-9\s\-()]+$/;
+        const digits = val.replace(/\D/g, '');
+        const isValid = phoneRegex.test(val) && digits.length >= 7 && digits.length <= 15;
+
+        if (!isValid) {
+            phoneInputWrap.classList.add('invalid-input');
+            phoneError.style.display = 'flex';
+            phoneError.innerHTML = '<span class="material-symbols-outlined" style="font-size:0.95rem">error</span> Invalid format (7-15 digits allowed)';
+            return false;
+        } else {
+            phoneInputWrap.classList.remove('invalid-input');
+            phoneError.style.display = 'none';
+            phoneError.textContent = '';
+            return true;
+        }
+    }
+
+    if (phoneInput) {
+        phoneInput.addEventListener('keypress', (e) => {
+            if (!/[0-9\s\-()+]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
+
+        phoneInput.addEventListener('input', () => {
+            const cleaned = cleanPhoneInput(phoneInput.value);
+            if (phoneInput.value !== cleaned) {
+                phoneInput.value = cleaned;
+            }
+            validatePhone();
+        });
+
+        phoneInput.addEventListener('blur', () => {
+            validatePhone();
+        });
+    }
+
     if (onboardForm) {
         onboardForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const shopName = document.getElementById('shopNameInput').value;
-            const phone = document.getElementById('phoneInput').value;
+            const phone = phoneInput ? phoneInput.value : '';
             const currency = document.getElementById('currencySelect').value;
             
+            const isPhoneValid = validatePhone();
+            if (!isPhoneValid) {
+                if (phoneInputWrap) {
+                    phoneInputWrap.classList.add('shake-input');
+                    setTimeout(() => {
+                        phoneInputWrap.classList.remove('shake-input');
+                    }, 400);
+                }
+                return;
+            }
+
             if (shopName && phone && currency) {
                 const baseUrl = 'https://zikfash.intitech.dev';
                 const params = new URLSearchParams();
