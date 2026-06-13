@@ -1,0 +1,17 @@
+name: IndexNow Auto-Submit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Submit Sitemap to IndexNow
+        shell: pwsh
+        run: ./submit-indexnow.ps1
