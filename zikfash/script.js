@@ -14,24 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
             auth: { persistSession: false }
         });
-        
-        // Log landing page view
-        const payload = {
-            userAgent: navigator.userAgent,
-            screen: `${window.screen.width}x${window.screen.height}`,
-            referrer: document.referrer
-        };
-        
-        supabaseClient.rpc('insert_telemetry_events', {
-            events: [{
-                event_name: 'landing_page_view',
-                payload: payload,
-                session_id: sessionId,
-                device_info: JSON.stringify(payload)
-            }]
-        }).then(({ error }) => {
-            if (error) console.warn('[Telemetry] Error logging visit', error);
-        });
+        // (Telemetry has been removed for privacy and performance)
     }
     // ──────────────────────────────────────────────────────────────────
 
@@ -165,15 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (shopName && phone && currency) {
-                // Log onboarding event
+                // Sync shop to CRM
                 if (supabaseClient) {
-                    supabaseClient.rpc('insert_telemetry_events', {
-                        events: [{
-                            event_name: 'onboarding_started',
-                            payload: { shopName, currency },
-                            session_id: sessionId,
-                            device_info: null
-                        }]
+                    supabaseClient.rpc('upsert_shop', {
+                        p_session_id: sessionId,
+                        p_shop_name: shopName,
+                        p_phone: phone,
+                        p_currency: currency
                     }).catch(() => {});
                 }
 
