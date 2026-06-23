@@ -295,10 +295,50 @@
                     </div>
                     <p>Powered by <a href="https://intitech.dev/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;"><strong>IntiTech</strong></a></p>
                 </div>
+                <div class="f-links" style="display: flex; gap: 20px; align-items: center;">
+                    <a href="privacy.html" style="color: var(--text-mid); font-size: 0.9rem; transition: color 0.3s;">Terms & Privacy</a>
+                </div>
                 <p class="copyright">&copy; 2026 ZikFash. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Privacy Banner -->
+    <div id="privacy-banner" class="privacy-banner" style="display: none;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-light);">We use basic analytics to improve ZikFash. By continuing, you agree to our <a href="privacy.html" style="color: var(--gold); text-decoration: underline;">Privacy Policy</a>.</p>
+            <button id="btn-accept-privacy" style="background: var(--gold); border: none; padding: 8px 16px; border-radius: 6px; color: #fff; cursor: pointer; font-weight: bold;">Got it</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!localStorage.getItem("zf_privacy_accepted")) {
+                document.getElementById("privacy-banner").style.display = "block";
+            }
+            document.getElementById("btn-accept-privacy").addEventListener("click", () => {
+                localStorage.setItem("zf_privacy_accepted", "true");
+                document.getElementById("privacy-banner").style.display = "none";
+            });
+        });
+    </script>
+    <style>
+        .privacy-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--espresso);
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .privacy-banner .container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
