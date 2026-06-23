@@ -1040,15 +1040,16 @@ body {
         border-top: 1px solid #eee !important;
         transform: translateY(-20px) !important;
         opacity: 0 !important;
-        display: none !important;
-        /* Force hide */
+        visibility: hidden !important;
+        display: flex !important;
+        /* Force hide visually but keep layout for animation */
         pointer-events: none !important;
         transition: all 0.3s !important;
         z-index: 1000 !important;
     }
 
     .nav-toggle:checked~.nav {
-        display: flex !important;
+        visibility: visible !important;
         /* Force show */
         transform: translateY(0) !important;
         opacity: 1 !important;
