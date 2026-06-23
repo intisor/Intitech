@@ -1318,3 +1318,161 @@ body {
 .shake-input {
     animation: shake 0.4s ease-in-out;
 }
+
+/* ─── AI Magic Section ────────────────────────────────── */
+.ai-magic {
+    padding: 120px 0;
+    background: var(--espresso);
+    color: var(--text-light);
+    position: relative;
+}
+
+.ai-header {
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ai-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+}
+
+.ai-header h2 span {
+    color: var(--gold);
+    font-style: italic;
+}
+
+.ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.ai-card {
+    background: var(--espresso-soft);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(184, 149, 90, 0.1);
+    transition: transform 0.3s;
+}
+
+.ai-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(184, 149, 90, 0.3);
+}
+
+.ai-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(184, 149, 90, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.ai-icon .material-symbols-outlined {
+    font-size: 2rem;
+    color: var(--gold);
+}
+
+.ai-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.ai-card p {
+    color: var(--text-light);
+    opacity: 0.8;
+}
+
+/* ─── Pricing Section ─────────────────────────────────── */
+.pricing-section {
+    padding: 100px 0;
+    background: var(--cream);
+}
+
+.pricing-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    background: #fff;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(26, 18, 8, 0.05);
+}
+
+.pricing-text {
+    flex: 1;
+}
+
+.pricing-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--espresso);
+    margin-bottom: 20px;
+}
+
+.pricing-text p {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+}
+
+.pricing-card {
+    flex: 0.8;
+    background: var(--espresso);
+    color: var(--text-light);
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid var(--gold);
+}
+
+.p-icon {
+    margin-bottom: 20px;
+}
+
+.p-icon .material-symbols-outlined {
+    font-size: 2.5rem;
+    color: var(--gold);
+}
+
+.pricing-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.pricing-card p {
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.p-features {
+    list-style: none;
+}
+
+.p-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.p-features li .material-symbols-outlined {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .pricing-wrap {
+        flex-direction: column;
+        padding: 30px;
+    }
+}
