@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let supabaseClient = null;
 
     if (window.supabase) {
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
+            auth: { persistSession: false }
+        });
         
         // Log landing page view
         const payload = {
@@ -27,7 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 session_id: sessionId,
                 device_info: JSON.stringify(payload)
             }]
-        }).catch(err => console.warn('[Telemetry] Error logging visit', err));
+        }).then(({ error }) => {
+            if (error) console.warn('[Telemetry] Error logging visit', error);
+        });
     }
     // ──────────────────────────────────────────────────────────────────
 
