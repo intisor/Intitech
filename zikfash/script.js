@@ -173,34 +173,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Features Carousel for Mobile (max-width: 768px) ───────────────
-    const anchors = document.querySelectorAll('.carousel-anchor');
+    const anchors = document.querySelectorAll('.features-carousel-nav .carousel-anchor');
     const track = document.querySelector('.feature-grid');
+    let featuresInterval;
     
     if (anchors.length > 0 && track) {
+        const switchFeatureSlide = (index) => {
+            anchors.forEach(a => a.classList.remove('active'));
+            anchors[index].classList.add('active');
+            track.style.transform = `translateX(${-index * 100}%)`;
+        };
+
         anchors.forEach(anchor => {
             anchor.addEventListener('click', () => {
                 const index = parseInt(anchor.getAttribute('data-index'));
-                
-                // Update active class on anchors
-                anchors.forEach(a => a.classList.remove('active'));
-                anchor.classList.add('active');
-                
-                // Slide track
-                const offset = -index * 100;
-                track.style.transform = `translateX(${offset}%)`;
+                switchFeatureSlide(index);
+                resetFeaturesInterval();
             });
         });
+
+        const autoSwitchFeatures = () => {
+            // Only auto-switch on mobile
+            if (!window.matchMedia('(max-width: 768px)').matches) return;
+            const activeAnchor = document.querySelector('.features-carousel-nav .carousel-anchor.active');
+            if (!activeAnchor) return;
+            let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
+            let nextIndex = (currentIndex + 1) % anchors.length;
+            switchFeatureSlide(nextIndex);
+        };
+
+        const resetFeaturesInterval = () => {
+            clearInterval(featuresInterval);
+            featuresInterval = setInterval(autoSwitchFeatures, 4000);
+        };
+
+        resetFeaturesInterval();
 
         // Touch support for swiping
         let startX = 0;
         let currentX = 0;
         let isSwiping = false;
-        const container = document.querySelector('.carousel-track-container');
+        const container = track.parentElement;
 
-        if (container) {
+        if (container && container.classList.contains('carousel-track-container')) {
             container.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
                 isSwiping = true;
+                clearInterval(featuresInterval);
             }, { passive: true });
 
             container.addEventListener('touchmove', (e) => {
@@ -218,13 +237,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (Math.abs(diffX) > 50) { // Swipe threshold
                     if (diffX > 0 && currentIndex < anchors.length - 1) {
-                        // Swipe left -> next slide
-                        anchors[currentIndex + 1].click();
+                        switchFeatureSlide(currentIndex + 1);
                     } else if (diffX < 0 && currentIndex > 0) {
-                        // Swipe right -> prev slide
-                        anchors[currentIndex - 1].click();
+                        switchFeatureSlide(currentIndex - 1);
                     }
                 }
+                resetFeaturesInterval();
             });
         }
     }
