@@ -796,7 +796,7 @@ body {
     font-style: italic;
 }
 
-.features-carousel-nav {
+.features-carousel-nav, .ai-carousel-nav {
     display: none;
 }
 
@@ -1104,7 +1104,7 @@ body {
         height: 56px;
     }
 
-    .features-carousel-nav {
+    .features-carousel-nav, .ai-carousel-nav {
         display: flex;
         justify-content: center;
         gap: 8px;
@@ -1160,7 +1160,7 @@ body {
         border-radius: 24px;
     }
 
-    .feature-grid {
+    .feature-grid, .ai-grid {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
@@ -1170,7 +1170,7 @@ body {
         transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) !important;
     }
 
-    .feature-card {
+    .feature-card, .ai-card {
         flex: 0 0 100% !important;
         width: 100% !important;
         max-width: 100% !important;

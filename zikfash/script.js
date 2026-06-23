@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isSwiping) return;
                 isSwiping = false;
                 const diffX = startX - currentX;
-                const activeAnchor = document.querySelector('.carousel-anchor.active');
+                const activeAnchor = document.querySelector('.features-carousel-nav .carousel-anchor.active');
                 if (!activeAnchor) return;
                 let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
 
@@ -225,6 +225,80 @@ document.addEventListener('DOMContentLoaded', () => {
                         anchors[currentIndex - 1].click();
                     }
                 }
+            });
+        }
+    }
+
+    // ── AI Carousel for Mobile (Auto-switch 4s) ───────────────
+    const aiAnchors = document.querySelectorAll('.ai-anchor');
+    const aiTrack = document.querySelector('.ai-grid');
+    let aiInterval;
+
+    if (aiAnchors.length > 0 && aiTrack) {
+        const switchAiSlide = (index) => {
+            aiAnchors.forEach(a => a.classList.remove('active'));
+            aiAnchors[index].classList.add('active');
+            aiTrack.style.transform = `translateX(${-index * 100}%)`;
+        };
+
+        aiAnchors.forEach(anchor => {
+            anchor.addEventListener('click', () => {
+                const index = parseInt(anchor.getAttribute('data-index'));
+                switchAiSlide(index);
+                resetAiInterval();
+            });
+        });
+
+        const autoSwitchAi = () => {
+            // Only auto-switch on mobile
+            if (!window.matchMedia('(max-width: 768px)').matches) return;
+            const activeAnchor = document.querySelector('.ai-anchor.active');
+            if (!activeAnchor) return;
+            let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
+            let nextIndex = (currentIndex + 1) % aiAnchors.length;
+            switchAiSlide(nextIndex);
+        };
+
+        const resetAiInterval = () => {
+            clearInterval(aiInterval);
+            aiInterval = setInterval(autoSwitchAi, 4000);
+        };
+
+        resetAiInterval();
+
+        let aiStartX = 0;
+        let aiCurrentX = 0;
+        let aiIsSwiping = false;
+        const aiContainer = aiTrack.parentElement;
+
+        if (aiContainer && aiContainer.classList.contains('carousel-track-container')) {
+            aiContainer.addEventListener('touchstart', (e) => {
+                aiStartX = e.touches[0].clientX;
+                aiIsSwiping = true;
+                clearInterval(aiInterval);
+            }, { passive: true });
+
+            aiContainer.addEventListener('touchmove', (e) => {
+                if (!aiIsSwiping) return;
+                aiCurrentX = e.touches[0].clientX;
+            }, { passive: true });
+
+            aiContainer.addEventListener('touchend', () => {
+                if (!aiIsSwiping) return;
+                aiIsSwiping = false;
+                const diffX = aiStartX - aiCurrentX;
+                const activeAnchor = document.querySelector('.ai-anchor.active');
+                if (!activeAnchor) return;
+                let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
+
+                if (Math.abs(diffX) > 50) { 
+                    if (diffX > 0 && currentIndex < aiAnchors.length - 1) {
+                        switchAiSlide(currentIndex + 1);
+                    } else if (diffX < 0 && currentIndex > 0) {
+                        switchAiSlide(currentIndex - 1);
+                    }
+                }
+                resetAiInterval();
             });
         }
     }
