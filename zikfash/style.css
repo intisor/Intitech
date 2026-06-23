@@ -1321,10 +1321,11 @@ body {
 
 /* ─── AI Magic Section ────────────────────────────────── */
 .ai-magic {
-    padding: 120px 0;
-    background: var(--espresso);
+    padding: 80px 0 100px;
+    background: var(--espresso-soft);
     color: var(--text-light);
     position: relative;
+    border-top: 1px solid rgba(184, 149, 90, 0.1);
 }
 
 .ai-header {
@@ -1353,11 +1354,12 @@ body {
 }
 
 .ai-card {
-    background: var(--espresso-soft);
+    background: var(--espresso);
     padding: 40px;
     border-radius: 20px;
     border: 1px solid rgba(184, 149, 90, 0.1);
     transition: transform 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .ai-card:hover {
@@ -1473,6 +1475,23 @@ body {
 @media (max-width: 768px) {
     .pricing-wrap {
         flex-direction: column;
-        padding: 30px;
+        padding: 40px 25px;
+        text-align: center;
+    }
+    .pricing-text h2 {
+        font-size: 2rem;
+    }
+    .p-features {
+        text-align: left;
+    }
+    .pricing-card {
+        width: 100%;
+        padding: 30px 20px;
+    }
+    .ai-header h2 {
+        font-size: 2.2rem;
+    }
+    .ai-magic {
+        padding: 60px 0 80px;
     }
 }
