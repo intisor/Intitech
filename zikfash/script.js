@@ -1,4 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ── Telemetry Initialization ───────────────────────────────────────
+    let sessionId = localStorage.getItem('zf_session_id');
+    if (!sessionId) {
+        sessionId = crypto.randomUUID ? crypto.randomUUID() : 'id-' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('zf_session_id', sessionId);
+    }
+
+    const supabaseUrl = 'https://wvrasbwfwwmbfhhwejzy.supabase.co';
+    const supabaseKey = 'sb_publishable_6I6rcfO2jIe1nkRsfKIjFA_kP9MhQPc';
+    let supabaseClient = null;
+
+    if (window.supabase) {
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Log landing page view
+        const payload = {
+            userAgent: navigator.userAgent,
+            screen: `${window.screen.width}x${window.screen.height}`,
+            referrer: document.referrer
+        };
+        
+        supabaseClient.rpc('insert_telemetry_events', {
+            events: [{
+                event_name: 'landing_page_view',
+                payload: payload,
+                session_id: sessionId,
+                device_info: JSON.stringify(payload)
+            }]
+        }).catch(err => console.warn('[Telemetry] Error logging visit', err));
+    }
+    // ──────────────────────────────────────────────────────────────────
+
     const observerOptions = {
         threshold: 0.1
     };
@@ -129,12 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (shopName && phone && currency) {
+                // Log onboarding event
+                if (supabaseClient) {
+                    supabaseClient.rpc('insert_telemetry_events', {
+                        events: [{
+                            event_name: 'onboarding_started',
+                            payload: { shopName, currency },
+                            session_id: sessionId,
+                            device_info: null
+                        }]
+                    }).catch(() => {});
+                }
+
                 const baseUrl = 'https://zikfash.intitech.dev';
                 const params = new URLSearchParams();
                 params.set('ref', 'tailor');
                 params.set('shop', shopName);
                 params.set('phone', phone);
                 params.set('currency', currency);
+                params.set('session_id', sessionId); // Pass session ID to the App
                 window.location.href = `${baseUrl}?${params.toString()}`;
             } else {
                 alert("Please provide Shop Name, Phone Number, and Currency.");
