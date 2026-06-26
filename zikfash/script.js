@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (container && container.classList.contains('carousel-track-container')) {
             container.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
+                currentX = startX;
                 isSwiping = true;
                 clearInterval(featuresInterval);
             }, { passive: true });
@@ -292,6 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (aiContainer && aiContainer.classList.contains('carousel-track-container')) {
             aiContainer.addEventListener('touchstart', (e) => {
                 aiStartX = e.touches[0].clientX;
+                aiCurrentX = aiStartX;
                 aiIsSwiping = true;
                 clearInterval(aiInterval);
             }, { passive: true });
