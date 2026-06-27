@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Features Carousel for Mobile (max-width: 768px) ───────────────
-    const anchors = document.querySelectorAll('.features-carousel-nav .carousel-anchor');
+    const anchors = document.querySelectorAll('#features .features-carousel-nav .carousel-anchor');
     const track = document.querySelector('.feature-grid');
     let featuresInterval;
     
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const autoSwitchFeatures = () => {
             // Only auto-switch on mobile
             if (!window.matchMedia('(max-width: 768px)').matches) return;
-            const activeAnchor = document.querySelector('.features-carousel-nav .carousel-anchor.active');
+            const activeAnchor = document.querySelector('#features .features-carousel-nav .carousel-anchor.active');
             if (!activeAnchor) return;
             let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
             let nextIndex = (currentIndex + 1) % anchors.length;
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isSwiping) return;
                 isSwiping = false;
                 const diffX = startX - currentX;
-                const activeAnchor = document.querySelector('.features-carousel-nav .carousel-anchor.active');
+                const activeAnchor = document.querySelector('#features .features-carousel-nav .carousel-anchor.active');
                 if (!activeAnchor) return;
                 let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
 
