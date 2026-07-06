@@ -1496,3 +1496,242 @@ body {
         padding: 60px 0 80px;
     }
 }
+
+/* =========================================
+   Trust Bar
+   ========================================= */
+.trust-bar {
+    background: var(--espresso);
+    border-top: 1px solid rgba(212,175,55,0.1);
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    padding: 15px 0;
+}
+.trust-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+.trust-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.trust-list li span {
+    color: var(--gold);
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   Workflow Section
+   ========================================= */
+.workflow-section {
+    padding: 80px 0;
+    background: var(--espresso);
+    color: var(--text-light);
+}
+.workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+}
+.workflow-step {
+    background: rgba(30, 26, 21, 0.4);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 30px 25px;
+    position: relative;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.workflow-step:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212,175,55,0.3);
+}
+.step-num {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+}
+.step-icon {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    color: var(--gold);
+}
+.step-icon span {
+    font-size: 3rem;
+}
+.workflow-step h3 {
+    color: var(--text-light);
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+.workflow-step p {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   FAQ Section
+   ========================================= */
+.faq-section {
+    padding: 80px 0;
+    background: var(--cream);
+}
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.faq-item {
+    background: rgba(0,0,0,0.03);
+    border-left: 3px solid var(--gold);
+    padding: 25px;
+    border-radius: 0 12px 12px 0;
+}
+.faq-item h3 {
+    color: var(--text);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+.faq-item p {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.faq-item strong {
+    color: var(--text);
+}
+
+/* =========================================
+   Pro Tools Section (Showcase)
+   ========================================= */
+.pro-tools-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, var(--espresso) 0%, var(--espresso-soft) 100%);
+    overflow: hidden;
+}
+.showcase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    margin-top: 60px;
+}
+.showcase-row {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+.showcase-row.reverse {
+    flex-direction: row-reverse;
+}
+.showcase-text {
+    flex: 1;
+}
+.showcase-text h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-light);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+.showcase-text h3 span {
+    color: var(--gold);
+    font-size: 2.2rem;
+}
+.showcase-text p {
+    color: var(--text-mid);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+.showcase-image {
+    flex: 1;
+    position: relative;
+    border-radius: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+}
+.showcase-row.reverse .showcase-image {
+    transform: perspective(1000px) rotateY(5deg);
+}
+.showcase-image:hover {
+    transform: perspective(1000px) rotateY(0deg);
+}
+.app-screenshot-frame {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+}
+
+/* Portal Screenshot Masking */
+.portal-screenshot-mask {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #faf6f0; /* Matches portal background */
+}
+.portal-img-top {
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    height: 120px;
+}
+.portal-img-bottom {
+    width: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    height: 380px;
+}
+
+@media (max-width: 900px) {
+    .showcase-row, .showcase-row.reverse {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+    .showcase-text h3 {
+        justify-content: center;
+    }
+    .showcase-image, .showcase-row.reverse .showcase-image {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .trust-list {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+}
