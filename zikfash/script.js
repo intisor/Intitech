@@ -10,9 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const supabaseKey = 'sb_publishable_6I6rcfO2jIe1nkRsfKIjFA_kP9MhQPc';
     let supabaseClient = null;
 
-    if (window.supabase) {
+    if (window.supabase && window.location.protocol !== 'file:') {
         supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
-            auth: { persistSession: false }
+            auth: { 
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
+            }
         });
         // (Telemetry has been removed for privacy and performance)
     }
@@ -172,156 +176,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── Features Carousel for Mobile (max-width: 768px) ───────────────
-    const anchors = document.querySelectorAll('#features .features-carousel-nav .carousel-anchor');
-    const track = document.querySelector('.feature-grid');
-    let featuresInterval;
-    
-    if (anchors.length > 0 && track) {
-        const switchFeatureSlide = (index) => {
-            anchors.forEach(a => a.classList.remove('active'));
-            anchors[index].classList.add('active');
-            track.style.transform = `translateX(${-index * 100}%)`;
-        };
 
-        anchors.forEach(anchor => {
+    // ── Native Carousel Sync Logic ───────────────
+    const setupCarouselSync = (gridSelector, navSelector) => {
+        const grid = document.querySelector(gridSelector);
+        const anchors = document.querySelectorAll(navSelector);
+        if (!grid || anchors.length === 0) return;
+
+        // Click pill to scroll to card
+        anchors.forEach((anchor, index) => {
             anchor.addEventListener('click', () => {
-                const index = parseInt(anchor.getAttribute('data-index'));
-                switchFeatureSlide(index);
-                resetFeaturesInterval();
+                const card = grid.children[index];
+                if (card) {
+                    const scrollLeft = card.offsetLeft - grid.offsetLeft;
+                    grid.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
             });
         });
 
-        const autoSwitchFeatures = () => {
-            // Only auto-switch on mobile
-            if (!window.matchMedia('(max-width: 768px)').matches) return;
-            const activeAnchor = document.querySelector('#features .features-carousel-nav .carousel-anchor.active');
-            if (!activeAnchor) return;
-            let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
-            let nextIndex = (currentIndex + 1) % anchors.length;
-            switchFeatureSlide(nextIndex);
-        };
-
-        const resetFeaturesInterval = () => {
-            clearInterval(featuresInterval);
-            featuresInterval = setInterval(autoSwitchFeatures, 4000);
-        };
-
-        resetFeaturesInterval();
-
-        // Touch support for swiping
-        let startX = 0;
-        let currentX = 0;
-        let isSwiping = false;
-        const container = track.parentElement;
-
-        if (container && container.classList.contains('carousel-track-container')) {
-            container.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                currentX = startX;
-                isSwiping = true;
-                clearInterval(featuresInterval);
-            }, { passive: true });
-
-            container.addEventListener('touchmove', (e) => {
-                if (!isSwiping) return;
-                currentX = e.touches[0].clientX;
-            }, { passive: true });
-
-            container.addEventListener('touchend', () => {
-                if (!isSwiping) return;
-                isSwiping = false;
-                const diffX = startX - currentX;
-                const activeAnchor = document.querySelector('#features .features-carousel-nav .carousel-anchor.active');
-                if (!activeAnchor) return;
-                let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
-
-                if (Math.abs(diffX) > 50) { // Swipe threshold
-                    if (diffX > 0 && currentIndex < anchors.length - 1) {
-                        switchFeatureSlide(currentIndex + 1);
-                    } else if (diffX < 0 && currentIndex > 0) {
-                        switchFeatureSlide(currentIndex - 1);
-                    }
+        // Scroll card to update active pill
+        grid.addEventListener('scroll', () => {
+            let activeIndex = 0;
+            let minDiff = Infinity;
+            
+            Array.from(grid.children).forEach((card, index) => {
+                const diff = Math.abs((card.offsetLeft - grid.offsetLeft) - grid.scrollLeft);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    activeIndex = index;
                 }
-                resetFeaturesInterval();
             });
-        }
-    }
 
-    // ── AI Carousel for Mobile (Auto-switch 4s) ───────────────
-    const aiAnchors = document.querySelectorAll('.ai-anchor');
-    const aiTrack = document.querySelector('.ai-grid');
-    let aiInterval;
-
-    if (aiAnchors.length > 0 && aiTrack) {
-        const switchAiSlide = (index) => {
-            aiAnchors.forEach(a => a.classList.remove('active'));
-            aiAnchors[index].classList.add('active');
-            aiTrack.style.transform = `translateX(${-index * 100}%)`;
-        };
-
-        aiAnchors.forEach(anchor => {
-            anchor.addEventListener('click', () => {
-                const index = parseInt(anchor.getAttribute('data-index'));
-                switchAiSlide(index);
-                resetAiInterval();
-            });
-        });
-
-        const autoSwitchAi = () => {
-            // Only auto-switch on mobile
-            if (!window.matchMedia('(max-width: 768px)').matches) return;
-            const activeAnchor = document.querySelector('.ai-anchor.active');
-            if (!activeAnchor) return;
-            let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
-            let nextIndex = (currentIndex + 1) % aiAnchors.length;
-            switchAiSlide(nextIndex);
-        };
-
-        const resetAiInterval = () => {
-            clearInterval(aiInterval);
-            aiInterval = setInterval(autoSwitchAi, 4000);
-        };
-
-        resetAiInterval();
-
-        let aiStartX = 0;
-        let aiCurrentX = 0;
-        let aiIsSwiping = false;
-        const aiContainer = aiTrack.parentElement;
-
-        if (aiContainer && aiContainer.classList.contains('carousel-track-container')) {
-            aiContainer.addEventListener('touchstart', (e) => {
-                aiStartX = e.touches[0].clientX;
-                aiCurrentX = aiStartX;
-                aiIsSwiping = true;
-                clearInterval(aiInterval);
-            }, { passive: true });
-
-            aiContainer.addEventListener('touchmove', (e) => {
-                if (!aiIsSwiping) return;
-                aiCurrentX = e.touches[0].clientX;
-            }, { passive: true });
-
-            aiContainer.addEventListener('touchend', () => {
-                if (!aiIsSwiping) return;
-                aiIsSwiping = false;
-                const diffX = aiStartX - aiCurrentX;
-                const activeAnchor = document.querySelector('.ai-anchor.active');
-                if (!activeAnchor) return;
-                let currentIndex = parseInt(activeAnchor.getAttribute('data-index'));
-
-                if (Math.abs(diffX) > 50) { 
-                    if (diffX > 0 && currentIndex < aiAnchors.length - 1) {
-                        switchAiSlide(currentIndex + 1);
-                    } else if (diffX < 0 && currentIndex > 0) {
-                        switchAiSlide(currentIndex - 1);
+            anchors.forEach((a, idx) => {
+                if (idx === activeIndex) {
+                    if (!a.classList.contains('active')) {
+                        a.classList.add('active');
+                        // Scroll pill container to keep active pill visible
+                        a.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
                     }
+                } else {
+                    a.classList.remove('active');
                 }
-                resetAiInterval();
             });
-        }
-    }
+        }, { passive: true });
+    };
+
+    setupCarouselSync('.feature-grid', '#features .carousel-anchor');
+    setupCarouselSync('.ai-grid', '.ai-carousel-nav .carousel-anchor');
 
     // Trigger the Z-logo transformation after the glide to top-left is done
     // Mobile: 5.5s animation + 2s delay + 0.5s buffer = 8s
