@@ -1795,6 +1795,13 @@ body {
         border-radius: 12px;
     }
     
+    .portal-img-top {
+        height: 70px;
+    }
+    .portal-img-bottom {
+        height: 200px;
+    }
+
     .trust-list {
         gap: 8px 14px;
         flex-direction: row;
