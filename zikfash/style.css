@@ -1722,11 +1722,15 @@ body {
 /* Portal Screenshot Masking */
 .portal-screenshot-mask {
     width: 100%;
+    min-width: 260px; /* Prevents empty div collapse */
+    max-width: 320px;
+    margin: 0 auto; /* Centers the phone frame */
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     background: #faf6f0; /* Matches portal background */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 .portal-img-top {
     width: 100%;
