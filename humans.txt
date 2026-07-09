@@ -1,0 +1,12 @@
+/* TEAM */
+Developer: IntiTech
+Site: https://intitech.dev/
+Location: Global
+Role: Frontend Architecture, UI/UX Design, AEO & AI Integration
+
+/* SITE */
+Last update: 2026/07/09
+Language: English
+Standards: HTML5, CSS3, ES6, Generative AI (AEO)
+Components: GSAP, Modern CSS Variables
+Software: Visual Studio Code, Supabase
