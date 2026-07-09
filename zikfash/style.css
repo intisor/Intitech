@@ -1730,15 +1730,18 @@ body {
 }
 .portal-img-top {
     width: 100%;
-    object-fit: cover;
-    object-position: top;
+    background-size: 100% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
     height: 120px;
 }
 .portal-img-bottom {
     width: 100%;
-    object-fit: cover;
-    object-position: bottom;
+    background-size: 100% auto;
+    background-position: bottom center;
+    background-repeat: no-repeat;
     height: 380px;
+    border-top: 1px dashed rgba(184, 149, 90, 0.4); /* optional: adds a visual cut line */
 }
 
 @media (max-width: 900px) {
