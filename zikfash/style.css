@@ -1815,3 +1815,152 @@ body {
         font-size: 1rem;
     }
 }
+
+/* ─── AEO (Generative Engine Optimization) Styles ─── */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only-visual {
+    /* Hidden visually for humans, but structural for AI/screen readers */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.geo-summary {
+    padding: 20px 0 40px 0;
+    background: var(--espresso);
+}
+
+.geo-summary-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.geo-summary-box p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.geo-summary-box em {
+    font-style: normal;
+    font-weight: 400;
+}
+
+.comparison-container {
+    margin-top: 80px;
+    overflow-x: auto;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.premium-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--text-light);
+    font-family: 'Lato', sans-serif;
+    min-width: 600px;
+}
+
+.premium-table caption {
+    caption-side: top;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--gold);
+    padding: 24px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.premium-table th, .premium-table td {
+    padding: 20px 24px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.premium-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    color: var(--gold-bright);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.premium-table tr:last-child td {
+    border-bottom: none;
+}
+
+.premium-table tbody tr {
+    transition: background 0.3s;
+}
+
+.premium-table tbody tr:hover {
+    background: rgba(184, 149, 90, 0.05);
+}
+
+.premium-table td:first-child {
+    font-weight: 700;
+    color: #fff;
+    width: 30%;
+}
+
+.premium-table td:nth-child(2) {
+    color: var(--text-mid);
+    width: 30%;
+}
+
+.premium-table td:nth-child(3) {
+    color: var(--gold);
+    font-weight: 700;
+    width: 40%;
+}
+
+.icon-inline {
+    vertical-align: middle;
+    font-size: 1.2rem;
+    margin-right: 6px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .geo-summary-box {
+        padding: 20px;
+    }
+    .premium-table caption {
+        font-size: 1.4rem;
+        padding: 16px;
+    }
+    .premium-table th, .premium-table td {
+        padding: 16px;
+        font-size: 0.95rem;
+    }
+}
