@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ── Telemetry Initialization ───────────────────────────────────────
-    let sessionId = localStorage.getItem('zf_session_id');
-    if (!sessionId) {
-        sessionId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('zf_session_id', sessionId);
+    let sessionId = 'temp-id';
+    try {
+        sessionId = localStorage.getItem('zf_session_id');
+        if (!sessionId) {
+            sessionId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Math.random().toString(36).substr(2, 9);
+            localStorage.setItem('zf_session_id', sessionId);
+        }
+    } catch (e) {
+        // Fallback if localStorage is blocked
+        sessionId = 'id-' + Math.random().toString(36).substr(2, 9);
     }
 
     const supabaseUrl = 'https://wvrasbwfwwmbfhhwejzy.supabase.co';
@@ -11,13 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let supabaseClient = null;
 
     if (window.supabase && window.location.protocol !== 'file:') {
-        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
-            auth: { 
-                persistSession: false,
-                autoRefreshToken: false,
-                detectSessionInUrl: false
-            }
-        });
+        try {
+            supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey, {
+                auth: { 
+                    persistSession: false,
+                    autoRefreshToken: false,
+                    detectSessionInUrl: false
+                }
+            });
+        } catch (e) {
+            console.warn('Supabase initialization failed:', e);
+        }
         // (Telemetry has been removed for privacy and performance)
     }
     // ──────────────────────────────────────────────────────────────────
@@ -152,14 +162,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (shopName && phone && currency) {
+                const btn = onboardForm.querySelector('.btn-gold');
+                if (btn) {
+                    btn.innerText = "Starting...";
+                    btn.style.opacity = '0.8';
+                    btn.style.pointerEvents = 'none';
+                }
+
                 // Sync shop to CRM
                 if (supabaseClient) {
-                    supabaseClient.rpc('upsert_shop', {
-                        p_session_id: sessionId,
-                        p_shop_name: shopName,
-                        p_phone: phone,
-                        p_currency: currency
-                    }).catch(() => {});
+                    (async () => {
+                        try {
+                            await supabaseClient.rpc('upsert_shop', {
+                                p_session_id: sessionId,
+                                p_shop_name: shopName,
+                                p_phone: phone,
+                                p_currency: currency
+                            });
+                        } catch (e) {}
+                    })();
                 }
 
                 const baseUrl = 'https://zikfash.intitech.dev';
@@ -169,7 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 params.set('phone', phone);
                 params.set('currency', currency);
                 params.set('session_id', sessionId); // Pass session ID to the App
-                window.location.href = `${baseUrl}?${params.toString()}`;
+                
+                setTimeout(() => {
+                    window.location.href = `${baseUrl}?${params.toString()}`;
+                }, 400);
             } else {
                 alert("Please provide Shop Name, Phone Number, and Currency.");
             }
