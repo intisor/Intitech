@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Telemetry Initialization ───────────────────────────────────────
     let sessionId = localStorage.getItem('zf_session_id');
     if (!sessionId) {
-        sessionId = crypto.randomUUID ? crypto.randomUUID() : 'id-' + Math.random().toString(36).substr(2, 9);
+        sessionId = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Math.random().toString(36).substr(2, 9);
         localStorage.setItem('zf_session_id', sessionId);
     }
 
@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!phoneInput) return false;
         const val = phoneInput.value.trim();
         if (!val) {
-            phoneInputWrap.classList.remove('invalid-input');
-            phoneError.style.display = 'none';
-            phoneError.textContent = '';
+            phoneInputWrap.classList.add('invalid-input');
+            phoneError.style.display = 'flex';
+            phoneError.innerHTML = '<span class="material-symbols-outlined" style="font-size:0.95rem">error</span> Phone number is required';
             return false;
         }
 
